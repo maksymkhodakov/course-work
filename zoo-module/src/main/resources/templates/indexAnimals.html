@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>List of Animals</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+  body {
+    padding: 20px;
+  }
+  .table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+  .btn {
+    margin-right: 5px;
+  }
+  .form-group {
+    margin-top: 10px;
+  }
+  .container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+</style>
+<body>
+<div th:replace="navbar.html"></div>
+<body>
+<div>
+  <div>
+    <form th:action="@{/animal/findAnimalsByName}" method="get">
+      <input id="animalNamesSearch" name="animalName" placeholder="Animal name" />
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </div>
+</div>
+</body>
+<div class="container">
+  <h1>List of Animals</h1>
+  <a class="btn btn-primary mb-3" th:href="@{/animal/create}">Add Animal</a>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Kind of Animal</th>
+      <th scope="col">Venomous</th>
+      <th scope="col">Type of Power Supply</th>
+      <th scope="col">Photo</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <canvas id="kindOfAnimalChart" width="400" height="100" class="mb-3"></canvas>
+    <tbody>
+    <tr th:each="animal : ${lostAnimals}">
+      <td th:text="${animal.name}"></td>
+      <td th:text="${animal.kindAnimal}"></td>
+      <td th:text="${animal.venomous ? 'Yes' : 'No'}"></td>
+      <td th:text="${animal.typePowerSupply}"></td>
+      <td>
+        <img th:if="${animal.photo != null}" th:src="'data:image/jpeg;base64,' + ${animal.generateBase64Image()}" width="200" height="150" alt="Animal Photo"/>
+      </td>
+      <td>
+        <form th:action="@{/animal/delete}" method="post">
+          <input type="hidden" name="id" th:value="${animal.id}"/>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        <a class="btn btn-info" th:href="@{'/animal/update/' + ${animal.id}}">Edit</a>
+        <div class="form-group">
+          <a class="btn btn-outline-success" th:href="@{'/animal/countries/' + ${animal.id}}">Countries</a>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<script th:inline="javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    const ctx = document.getElementById('kindOfAnimalChart').getContext('2d');
+    const listOfAnimals = /*[[${lostAnimals}]]*/ [];
+    const kindCounts = {};
+
+    listOfAnimals.forEach(function (animal) {
+      const kind = animal.kindAnimal;
+      if (kindCounts[kind]) {
+        kindCounts[kind]++;
+      } else {
+        kindCounts[kind] = 1;
+      }
+    });
+
+    var kinds = Object.keys(kindCounts);
+    var kindCount = Object.values(kindCounts);
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: kinds,
+        datasets: [{
+          label: 'Animal Count by Kind',
+          data: kindCount,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Number of Animals'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Kind'
+            }
+          }
+        }
+      }
+    });
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(initAutocomplete);
+  function initAutocomplete() {
+    $("#animalNamesSearch").autocomplete({
+      minLength: 3,
+      delay: 300,
+      source: fetchAnimalNames
+    });
+  }
+
+  function fetchAnimalNames(request, response) {
+    $.ajax({
+      url: "/animal/findNames",
+      type: "GET",
+      dataType: "json",
+      data: { term: request.term },
+      success: data => {
+        const mappedData = data.map(item => ({ label: item.name, value: item.name }));
+        response(mappedData);
+      }
+    });
+  }
+</script>
+</body>
+</html>
