@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/kafka")
+@RequestMapping("/api")
 public class RabbitMqController {
 
     private final MessageProducerWrapper messageProducerWrapper;
 
-    @PostMapping("producer-dev/produce")
+    @PostMapping("/rabbitmq/producer-dev/produce")
     public ResponseEntity<Void> produce(@RequestBody @Valid CreateAnimalDTO createAnimalDTO) {
         messageProducerWrapper.produceMessages(createAnimalDTO);
         return ResponseEntity.ok().build();
