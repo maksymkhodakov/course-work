@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.producermodule.rabbitmq.service.MessageProducerWrapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 
@@ -11,12 +12,18 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class MessageProducerWrapperImpl implements MessageProducerWrapper {
+    @Value("${rabbit.handler.exchange}")
+    private String exchangeName;
+
+    @Value("${rabbit.handler.routing_key}")
+    private String routingKeyName;
+
     private final RabbitTemplate rabbitTemplate;
 
     @Override
-    public <T> void produceMessages(final String queueName, final String routingKey, final T object) {
+    public void produceMessages(final Object object) {
         log.info("Start to produce messages");
-        rabbitTemplate.convertAndSend(queueName, routingKey, object);
+        rabbitTemplate.convertAndSend(exchangeName, routingKeyName, object);
         log.info("Finished to produce messages");
     }
 }

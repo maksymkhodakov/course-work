@@ -1,8 +1,6 @@
 package org.example.producermodule.rabbitmq.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -37,7 +35,10 @@ public class RabbitMQConfiguration {
 
     @Bean
     public Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(routingKeyName);
+        return BindingBuilder
+                .bind(queue)
+                .to(exchange)
+                .with(routingKeyName);
     }
 
     @Bean
@@ -49,26 +50,18 @@ public class RabbitMQConfiguration {
 
     @Bean
     public MessageConverter messageConverter() {
-        return new Jackson2JsonMessageConverter(new ObjectMapper());
+        return new Jackson2JsonMessageConverter();
     }
 
     @Bean
-    public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
+    public AmqpAdmin amqpAdmin(final ConnectionFactory connectionFactory) {
+        return new RabbitAdmin(connectionFactory);
+    }
+
+    @Bean
+    public AmqpTemplate amqpTemplate(final ConnectionFactory connectionFactory){
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(messageConverter());
         return rabbitTemplate;
-    }
-
-    @Bean
-    public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory("localhost");
-        cachingConnectionFactory.setUsername("user");
-        cachingConnectionFactory.setPassword("password");
-        return cachingConnectionFactory;
-    }
-
-    @Bean
-    public AmqpAdmin amqpAdmin() {
-        return new RabbitAdmin(connectionFactory());
     }
 }

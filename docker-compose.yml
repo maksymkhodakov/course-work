@@ -13,3 +13,13 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
+
+  main_db:
+    image: mariadb:11.0
+    container_name: main_db
+    environment:
+      MARIADB_USER: root
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: main
+    ports:
+      - '3306:3306'
