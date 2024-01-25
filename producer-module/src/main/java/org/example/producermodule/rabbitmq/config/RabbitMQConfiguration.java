@@ -1,5 +1,6 @@
 package org.example.producermodule.rabbitmq.config;
 
+import org.example.producermodule.global.GlobalConstants;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
@@ -8,38 +9,45 @@ import org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfiguration {
-    @Value("${rabbit.handler.queue}")
-    private String queueName;
-
-    @Value("${rabbit.handler.exchange}")
-    private String exchangeName;
-
-    @Value("${rabbit.handler.routing_key}")
-    private String routingKeyName;
-
     @Bean
-    public Queue createQueue() {
-        return new Queue(queueName, false);
+    public Queue devQueue() {
+        return QueueBuilder.durable(GlobalConstants.DEV_QUEUE_NAME)
+                .withArgument("x-dead-letter-exchange", GlobalConstants.DLX_NAME)
+                .build();
     }
 
     @Bean
-    public TopicExchange exchange() {
-        return new TopicExchange(exchangeName);
+    public DirectExchange devExchange() {
+        return new DirectExchange(GlobalConstants.DEV_EXCHANGE_NAME);
     }
 
     @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder
-                .bind(queue)
-                .to(exchange)
-                .with(routingKeyName);
+    public Binding bindingMessages() {
+        return BindingBuilder.bind(devQueue()).to(devExchange()).with(GlobalConstants.DEV_ROUTING_KEY);
     }
+
+    // DLQ / DLX configuration
+
+    @Bean
+    public FanoutExchange deadLetterExchange() {
+        return new FanoutExchange(GlobalConstants.DLX_NAME);
+    }
+
+    @Bean
+    public Queue deadLetterQueue() {
+        return QueueBuilder.durable(GlobalConstants.DLQ_NAME).build();
+    }
+
+    @Bean
+    public Binding deadLetterBinding() {
+        return BindingBuilder.bind(deadLetterQueue()).to(deadLetterExchange());
+    }
+
 
     @Bean
     public AbstractMessageListenerContainer container(ConnectionFactory connectionFactory) {

@@ -3,13 +3,11 @@ package org.example.producermodule.rabbitmq.api;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.producermodule.rabbitmq.domain.dto.CreateAnimalDTO;
+import org.example.producermodule.rabbitmq.domain.dto.AnimalDTO;
+import org.example.producermodule.rabbitmq.domain.dto.AnimalUpdateDTO;
 import org.example.producermodule.rabbitmq.service.MessageProducerWrapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -19,9 +17,21 @@ public class RabbitMqController {
 
     private final MessageProducerWrapper messageProducerWrapper;
 
-    @PostMapping("/rabbitmq/producer-dev/produce")
-    public ResponseEntity<Void> produce(@RequestBody @Valid CreateAnimalDTO createAnimalDTO) {
-        messageProducerWrapper.produceMessages(createAnimalDTO);
+    @PostMapping("/rabbitmq/produce/animal/save")
+    public ResponseEntity<Void> produceCreate(@RequestBody @Valid AnimalDTO animalDTO) {
+        messageProducerWrapper.produceMessages(animalDTO);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/rabbitmq/produce/animal/update")
+    public ResponseEntity<Void> produceUpdate(@RequestBody @Valid AnimalUpdateDTO animalUpdateDTO) {
+        messageProducerWrapper.produceMessages(animalUpdateDTO);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/rabbitmq/produce/animal/delete/{id}")
+    public ResponseEntity<Void> produceDelete(@PathVariable Long id) {
+        messageProducerWrapper.produceMessages(id);
         return ResponseEntity.ok().build();
     }
 
