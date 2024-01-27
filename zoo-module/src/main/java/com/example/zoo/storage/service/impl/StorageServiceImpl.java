@@ -1,93 +1,84 @@
 package com.example.zoo.storage.service.impl;
 
-import com.azure.core.util.Context;
-import com.azure.storage.blob.BlobContainerClient;
-import com.azure.storage.blob.models.BlobHttpHeaders;
-import com.azure.storage.blob.models.BlobRequestConditions;
-import com.azure.storage.blob.specialized.BlockBlobClient;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.transfer.TransferManager;
+import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
+import com.amazonaws.services.s3.transfer.Upload;
 import com.example.zoo.exceptions.ApiErrors;
 import com.example.zoo.exceptions.OperationException;
 import com.example.zoo.storage.service.StorageService;
-import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.Objects;
-import java.util.UUID;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class StorageServiceImpl implements StorageService {
+    public static final String S3_REGEX_KEY_REGEX = "[^a-zA-Z\\d!\\-_.*`()]";
+    private final AmazonS3 amazonS3;
+    private final TransferManager transferManager;
 
-    private static final String PHOTO_FOLDER = "photos/";
-    private final BlobContainerClient blobContainerClient;
+    public StorageServiceImpl(AmazonS3 amazonS3) {
+        this.amazonS3 = amazonS3;
+        this.transferManager = TransferManagerBuilder.standard().withS3Client(amazonS3).build();
+    }
 
+    @SneakyThrows
     @Override
-    public byte[] downloadPhoto(String path) {
-        if (Objects.isNull(path) || path.isEmpty()) {
-            log.info("Blob path is empty");
-            return null;
+    public byte[] downloadFile(String s3BucketName, String s3ObjectKey) {
+        if (!amazonS3.doesObjectExist(s3BucketName, s3ObjectKey)) {
+            throw new OperationException(ApiErrors.RESOURCE_NOT_FOUND);
         }
-        try (var outputStream = new ByteArrayOutputStream()) {
-            var blobClient = blobContainerClient.getBlobClient(path);
-            if (Boolean.FALSE.equals(blobClient.exists())) {
-                log.info("Blob not exists");
-                return null;
-            }
-            blobClient.download(outputStream);
-            return outputStream.toByteArray();
-        } catch (Exception e) {
-            log.error("Error occurred during file downloading");
-            throw new OperationException(ApiErrors.DOWNLOAD_FILE_FAILED);
-        }
+        final S3Object object = amazonS3.getObject(s3BucketName, s3ObjectKey);
+        return object.getObjectContent().readAllBytes();
     }
 
     @Override
-    public String uploadPhoto(MultipartFile multipartFile) {
-        if (Objects.isNull(multipartFile) || multipartFile.isEmpty()) {
-            return null;
+    public String uploadFile(String s3BucketName, MultipartFile multipartFile) {
+        try {
+            final PutObjectRequest putObjectRequest = getPutObjectRequest(s3BucketName, multipartFile);
+            final Upload upload = transferManager.upload(putObjectRequest);
+            upload.waitForUploadResult();
+            return putObjectRequest.getKey();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new OperationException(ApiErrors.FAILED_S3_UPLOAD);
         }
-        var blobName = PHOTO_FOLDER + UUID.randomUUID();
-        var blobClient = blobContainerClient.getBlobClient(blobName).getBlockBlobClient();
-        upload(multipartFile, blobClient);
-        return blobName;
     }
 
-    private void upload(MultipartFile multipartFile, BlockBlobClient blobClient) {
-        try (BufferedInputStream bis = new BufferedInputStream(multipartFile.getInputStream())) {
-            blobClient.uploadWithResponse(
-                    bis,
-                    multipartFile.getSize(),
-                    new BlobHttpHeaders().setContentType(multipartFile.getContentType()),
-                    null,
-                    null,
-                    null,
-                    new BlobRequestConditions(),
-                    null,
-                    Context.NONE
-            );
-        } catch (IOException e) {
-            log.error("Error occurred during file upload to the storage");
-            throw new OperationException(ApiErrors.UPLOAD_FILE_ERROR);
+    @SneakyThrows
+    private PutObjectRequest getPutObjectRequest(String s3BucketName, MultipartFile multipartFile) {
+        if (Objects.isNull(multipartFile)) {
+            throw new OperationException(ApiErrors.EMPTY_FILE);
         }
+
+        final String filename = Objects.requireNonNull(multipartFile.getOriginalFilename()).replaceAll(S3_REGEX_KEY_REGEX, "");
+        final String s3Key = System.currentTimeMillis() + "-" + filename;
+
+        final ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentType(multipartFile.getContentType());
+        metadata.setContentLength(multipartFile.getSize());
+
+        return new PutObjectRequest(s3BucketName, s3Key, multipartFile.getInputStream(), metadata);
     }
 
     @Override
-    public void deletePhoto(String path) {
-        if (Objects.isNull(path) || path.isEmpty()) {
-            log.info("Blob is empty");
-            return;
+    public String updateFile(String s3BucketName, String s3ObjectKey, MultipartFile multipartFile) {
+        deleteFile(s3BucketName, s3ObjectKey);
+        return uploadFile(s3BucketName, multipartFile);
+    }
+
+    @Override
+    public void deleteFile(String s3BucketName, String s3ObjectKey) {
+        if (!amazonS3.doesObjectExist(s3BucketName, s3ObjectKey)) {
+            throw new OperationException(ApiErrors.RESOURCE_NOT_FOUND);
         }
-        var blobClient = blobContainerClient.getBlobClient(path).getBlockBlobClient();
-        if (Boolean.TRUE.equals(blobClient.exists())) {
-            blobClient.delete();
-        } else {
-            log.info("No blob exists by this path");
-        }
+        amazonS3.deleteObject(s3BucketName, s3ObjectKey);
     }
 }

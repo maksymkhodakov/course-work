@@ -11,6 +11,7 @@ import com.example.zoo.mapper.AnimalMapper;
 import com.example.zoo.mapper.CountryMapper;
 import com.example.zoo.repository.AnimalRepository;
 import com.example.zoo.repository.CountryRepository;
+import com.example.zoo.storage.config.AWSProperties;
 import com.example.zoo.storage.service.StorageService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller
@@ -36,6 +36,7 @@ public class AnimalController {
     AnimalRepository animalRepository;
     CountryRepository countryRepository;
     StorageService storageService;
+    AWSProperties awsProperties;
     AnimalMapper animalMapper;
 
     @GetMapping("/findNames")
@@ -87,7 +88,7 @@ public class AnimalController {
                 .kindAnimal(kindAnimal)
                 .venomous(venomous)
                 .typePowerSupply(typePowerSupply)
-                .photoPath(storageService.uploadPhoto(file))
+                .photoPath(storageService.uploadFile(awsProperties.getZooServiceBucketName(), file))
                 .build();
 
         animalRepository.saveAndFlush(animal);
@@ -99,6 +100,7 @@ public class AnimalController {
     public String delete(@RequestParam Long id) {
         var animal = animalRepository.findById(id)
                 .orElseThrow(() -> new OperationException(ApiErrors.ANIMAL_NOT_FOUND));
+        storageService.deleteFile(awsProperties.getZooServiceBucketName(), animal.getPhotoPath());
         animalRepository.delete(animal);
         return REDIRECT_ANIMAL_GET_ALL;
     }
@@ -130,18 +132,10 @@ public class AnimalController {
         animal.setTypePowerSupply(typePowerSupply);
 
         if (file.getBytes().length != 0) {
-            animal.setPhotoPath(updatePhoto(animal.getPhotoPath(), file));
+            animal.setPhotoPath(storageService.updateFile(awsProperties.getZooServiceBucketName(), animal.getPhotoPath(), file));
         }
 
         return REDIRECT_ANIMAL_GET_ALL;
-    }
-
-
-    private String updatePhoto(String photoPath, MultipartFile multipartFile) {
-        if (!Objects.isNull(photoPath) && !photoPath.isEmpty()) {
-            storageService.deletePhoto(photoPath);
-        }
-        return storageService.uploadPhoto(multipartFile);
     }
 
     @GetMapping("/countries/{id}")

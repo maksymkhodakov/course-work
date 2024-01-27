@@ -1,5 +1,6 @@
 package com.example.zoo.services.impl;
 
+import com.example.zoo.storage.config.AWSProperties;
 import com.example.zoo.storage.service.StorageService;
 import com.example.zoo.utils.SearchUtil;
 import com.example.zoo.data.AnimalData;
@@ -23,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 import static com.example.zoo.config.CachingConfig.*;
 
@@ -35,6 +35,7 @@ public class AnimalServiceImpl implements AnimalService {
     private final CountryRepository countryRepository;
     private final AnimalMapper animalMapper;
     private final StorageService storageService;
+    private final AWSProperties awsProperties;
 
     @Override
     @Cacheable(value = ANIMALS, cacheManager = "cacheManager")
@@ -60,14 +61,7 @@ public class AnimalServiceImpl implements AnimalService {
         animalToUpdate.setVenomous(animalData.isVenomous());
         animalToUpdate.setTypePowerSupply(animalData.getTypePowerSupply());
         animalToUpdate.setKindAnimal(animalData.getKindAnimal());
-        animalToUpdate.setPhotoPath(updatePhoto(animalToUpdate.getPhotoPath(), multipartFile));
-    }
-
-    private String updatePhoto(String photoPath, MultipartFile multipartFile) {
-        if (!Objects.isNull(photoPath) && !photoPath.isEmpty()) {
-            storageService.deletePhoto(photoPath);
-        }
-        return storageService.uploadPhoto(multipartFile);
+        animalToUpdate.setPhotoPath(storageService.updateFile(awsProperties.getZooServiceBucketName(), animalToUpdate.getPhotoPath(), multipartFile));
     }
 
     @Override
