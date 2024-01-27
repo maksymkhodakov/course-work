@@ -1,4 +1,4 @@
-package org.example.producermodule.rabbitmq.domain.dto;
+package org.example.producermodule.domain.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AnimalUpdateDTO implements Serializable {
-    @NotNull
-    private Long id;
+public class AnimalDTO implements Serializable {
     @NotNull
     private String name;
     @NotNull
