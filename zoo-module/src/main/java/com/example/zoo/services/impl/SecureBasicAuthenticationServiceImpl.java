@@ -2,7 +2,9 @@ package com.example.zoo.services.impl;
 
 import com.example.zoo.data.LoginData;
 import com.example.zoo.data.RegisterData;
+import com.example.zoo.dto.FeatureDTO;
 import com.example.zoo.entity.User;
+import com.example.zoo.enums.Privilege;
 import com.example.zoo.exceptions.ApiErrors;
 import com.example.zoo.exceptions.OperationException;
 import com.example.zoo.repository.UserRepository;
@@ -37,7 +39,7 @@ public class SecureBasicAuthenticationServiceImpl implements SecureBasicAuthenti
                     .builder()
                     .email(data.getEmail())
                     .password(passwordEncoder.encode(data.getPassword()))
-                    .authorities(List.of(data.getAuthorities()))
+                    .authorities(getAuthorities(data))
                     .name(data.getFirstName())
                     .lastName(data.getLastName())
                     .enabled(true)
@@ -51,6 +53,14 @@ public class SecureBasicAuthenticationServiceImpl implements SecureBasicAuthenti
             return false;
         }
         return true;
+    }
+
+    public List<FeatureDTO> getAuthorities(RegisterData data) {
+        if (data.getAuthorities() == null) {
+            return List.of(FeatureDTO.builder().privilege(Privilege.ROLE_BASIC_USER).build());
+        } else {
+            return List.of(data.getAuthorities());
+        }
     }
 
     @Override

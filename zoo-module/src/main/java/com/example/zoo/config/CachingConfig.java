@@ -22,22 +22,18 @@ public class CachingConfig {
     private static final long CACHE_TIMEOUT = 100;
 
     public static final String COUNTRIES = "countries";
-    public static final String COUNTRIES_ELASTIC = "countriesElastic";
 
     public static final String ANIMALS = "animals";
     public static final String ANIMALS_ELASTIC = "animalsElastic";
 
     public static final String ZOO = "zoo";
-    public static final String ZOO_ELASTIC = "zooElastic";
 
     @Scheduled(fixedRate = CACHE_TIMEOUT, timeUnit = TimeUnit.MINUTES)
     @CacheEvict(value = {
             COUNTRIES,
-            COUNTRIES_ELASTIC,
             ANIMALS,
             ANIMALS_ELASTIC,
-            ZOO,
-            ZOO_ELASTIC
+            ZOO
     }, allEntries = true)
     public void evictCache() {
         log.info("Evicting all entries from cache, happens once in a " + CACHE_TIMEOUT + " minutes.");
@@ -46,6 +42,6 @@ public class CachingConfig {
     @Bean
     @Primary
     public CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager(COUNTRIES, COUNTRIES_ELASTIC, ANIMALS, ANIMALS_ELASTIC, ZOO, ZOO_ELASTIC);
+        return new ConcurrentMapCacheManager(COUNTRIES, ANIMALS, ANIMALS_ELASTIC, ZOO);
     }
 }
