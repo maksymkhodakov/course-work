@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Builder
+@Table(name = "animal")
 public class Animal extends TimestampEntity {
 
     private String name;
