@@ -6,13 +6,13 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
-@Table(name = "animal")
+@Table(name = "animal_stream")
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Animal extends TimestampEntity {
+public class AnimalStream extends TimestampEntity {
     @Column(name = "name")
     private String name;
 

@@ -1,6 +1,6 @@
 package org.example.producermodule.rabbitmq.config;
 
-import org.example.producermodule.global.GlobalConstants;
+import org.example.producermodule.rabbitmq.global.GlobalConstants;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;

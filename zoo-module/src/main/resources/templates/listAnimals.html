@@ -12,19 +12,19 @@
     <button type="submit" class="btn btn-success">Add</button>
   </form>
   <div class="row">
-    <div th:each="animal : ${listAnimals}" class="col-md-4 mb-4">
+    <div th:each="animalStream : ${listAnimals}" class="col-md-4 mb-4">
       <div class="card">
-        <img th:src="'data:image/jpeg;base64,' + ${animal.generateBase64Image()}"
+        <img th:src="'data:image/jpeg;base64,' + ${animalStream.generateBase64Image()}"
              class="card-img-top" alt="Animal Image" style="max-height: 200px; object-fit: cover;">
         <div class="card-body">
-          <h5 class="card-title" th:text="${animal.name}"></h5>
+          <h5 class="card-title" th:text="${animalStream.name}"></h5>
           <p class="card-text">
-            <strong>Name:</strong> <span th:text="${animal.getName()}"></span><br>
-            <strong>Kind:</strong> <span th:text="${animal.kindAnimal}"></span><br>
-            <strong>Venomous:</strong> <span th:text="${animal.venomous ? 'Yes' : 'No'}"></span><br>
-            <strong>Power Supply:</strong> <span th:text="${animal.typePowerSupply}"></span>
+            <strong>Name:</strong> <span th:text="${animalStream.getName()}"></span><br>
+            <strong>Kind:</strong> <span th:text="${animalStream.kindAnimal}"></span><br>
+            <strong>Venomous:</strong> <span th:text="${animalStream.venomous ? 'Yes' : 'No'}"></span><br>
+            <strong>Power Supply:</strong> <span th:text="${animalStream.typePowerSupply}"></span>
           </p>
-          <form th:action="@{'/zoo/deleteAnimal/' + ${animal.id} + '/' + ${zooId}}" method="post">
+          <form th:action="@{'/zoo/deleteAnimal/' + ${animalStream.id} + '/' + ${zooId}}" method="post">
             <button type="submit" class="btn btn-danger">Delete</button>
           </form>
         </div>

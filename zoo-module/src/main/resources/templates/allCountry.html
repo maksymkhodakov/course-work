@@ -8,7 +8,7 @@
 <body>
 <div class="container mt-5">
     <h1>List of Countries</h1>
-    <form th:action="@{'/animal/addCountry/' +  ${id}}" method="get">
+    <form th:action="@{'/animalStream/addCountry/' +  ${id}}" method="get">
         <button type="submit" class="btn btn-outline-primary">Add country</button>
     </form>
     <table class="table table-bordered">
@@ -29,7 +29,7 @@
             </td>
             <td th:text="${country.continent}"></td>
             <td>
-                <form th:action="@{'/animal/deleteCountry/' + ${country.id} + '/' + ${id}}" method="post">
+                <form th:action="@{'/animalStream/deleteCountry/' + ${country.id} + '/' + ${id}}" method="post">
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </td>
@@ -37,7 +37,7 @@
         </tbody>
     </table>
     <div class="form-group">
-        <a href="/animal/getAll" class="btn btn-secondary">Cancel</a>
+        <a href="/animalStream/getAll" class="btn btn-secondary">Cancel</a>
     </div>
 </div>
 </body>

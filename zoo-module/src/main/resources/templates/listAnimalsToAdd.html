@@ -23,17 +23,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="animal : ${listAnimals}">
-                    <td th:text="${animal.name}"></td>
-                    <td th:text="${animal.kindAnimal}"></td>
-                    <td th:text="${animal.venomous ? 'Yes' : 'No'}"></td>
-                    <td th:text="${animal.typePowerSupply}"></td>
+                <tr th:each="animalStream : ${listAnimals}">
+                    <td th:text="${animalStream.name}"></td>
+                    <td th:text="${animalStream.kindAnimal}"></td>
+                    <td th:text="${animalStream.venomous ? 'Yes' : 'No'}"></td>
+                    <td th:text="${animalStream.typePowerSupply}"></td>
                     <td>
-                        <img th:src="'data:image/jpeg;base64,' + ${animal.generateBase64Image()}"
+                        <img th:src="'data:image/jpeg;base64,' + ${animalStream.generateBase64Image()}"
                              class="card-img-top" alt="Animal Image" style="max-height: 200px; object-fit: cover;">
                     </td>
                     <td>
-                        <button type="submit" name="animalId" th:value="${animal.id}" class="btn btn-primary">Add</button>
+                        <button type="submit" name="animalId" th:value="${animalStream.id}" class="btn btn-primary">Add</button>
                     </td>
                 </tr>
                 <div class="form-group">

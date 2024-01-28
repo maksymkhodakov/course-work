@@ -1,7 +1,7 @@
-package org.example.consumermodule.listeners;
+package org.example.consumermodule.rabbitmq.listeners;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.producermodule.global.GlobalConstants;
+import org.example.producermodule.rabbitmq.global.GlobalConstants;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;

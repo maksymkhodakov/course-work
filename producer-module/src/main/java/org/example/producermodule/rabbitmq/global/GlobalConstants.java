@@ -1,4 +1,4 @@
-package org.example.producermodule.global;
+package org.example.producermodule.rabbitmq.global;
 
 import lombok.experimental.UtilityClass;
 

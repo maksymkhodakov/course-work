@@ -8,13 +8,13 @@
 <body>
 <div class="container mt-5">
     <h1>Update Animal</h1>
-    <form action="/animal/update" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="id" th:value="${animal.id}" />
+    <form action="/animalStream/update" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" th:value="${animalStream.id}" />
 
         <div class="form-group">
             <label for="nameInput">Name of Animal:</label>
             <input type="text" class="form-control" id="nameInput" name="nameInput"
-                   th:value="${animal.name}" required="true">
+                   th:value="${animalStream.name}" required="true">
         </div>
 
         <div class="form-group">
@@ -22,13 +22,13 @@
             <select class="form-control" id="kindSelect" name="kindAnimal">
                 <option value="" disabled>Select a kind</option>
                 <option th:each="kind : ${kind}" th:value="${kind}" th:text="${kind}"
-                        th:selected="${kind == animal.kindAnimal}"></option>
+                        th:selected="${kind == animalStream.kindAnimal}"></option>
             </select>
         </div>
         <div class="form-group">
             <label for="venomousCheckbox">Venomous:</label>
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="venomousCheckbox" name="venomous"   th:checked="${animal.venomous}">
+                <input type="checkbox" class="form-check-input" id="venomousCheckbox" name="venomous"   th:checked="${animalStream.venomous}">
             </div>
         </div>
         <div class="form-group">
@@ -36,7 +36,7 @@
             <select class="form-control" id="supplySelect" name="typePowerSupply">
                 <option value="" disabled>Select a type of power supply</option>
                 <option th:each="supply : ${supply}" th:value="${supply}" th:text="${supply}"
-                        th:selected="${supply == animal.typePowerSupply}"></option>
+                        th:selected="${supply == animalStream.typePowerSupply}"></option>
             </select>
         </div>
 
@@ -46,7 +46,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Update</button>
-        <a href="/animal/getAll" class="btn btn-secondary">Cancel</a>
+        <a href="/animalStream/getAll" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 </body>

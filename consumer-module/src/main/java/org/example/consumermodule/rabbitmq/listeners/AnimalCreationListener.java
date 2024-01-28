@@ -1,11 +1,11 @@
-package org.example.consumermodule.listeners;
+package org.example.consumermodule.rabbitmq.listeners;
 
-import jakarta.transaction.Transactional;
+import org.example.consumermodule.domain.entity.AnimalStream;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.consumermodule.domain.entity.Animal;
-import org.example.consumermodule.repositories.AnimalRepository;
-import org.example.producermodule.global.GlobalConstants;
+import org.example.consumermodule.domain.repositories.AnimalRepository;
+import org.example.producermodule.rabbitmq.global.GlobalConstants;
 import org.example.producermodule.domain.dto.AnimalDTO;
 import org.example.producermodule.domain.dto.AnimalUpdateDTO;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -22,35 +22,35 @@ public class AnimalCreationListener {
     @RabbitHandler
     @Transactional
     public void save(AnimalDTO animalDTO) {
-        final Animal animal = Animal.builder()
+        final AnimalStream animalStream = AnimalStream.builder()
                     .name(animalDTO.getName())
                     .age(animalDTO.getAge())
                     .venomous(animalDTO.isVenomous())
                     .build();
-        final Animal savedAnimal = animalRepository.save(animal);
-        log.info("Animal saved with id={}", savedAnimal.getId());
+        final AnimalStream savedAnimalStream = animalRepository.save(animalStream);
+        log.info("Animal saved with id={}", savedAnimalStream.getId());
     }
 
     @RabbitHandler
     @Transactional
     public void update(AnimalUpdateDTO animalUpdateDTO) {
-        final Animal animal = animalRepository.findById(animalUpdateDTO.getId())
+        final AnimalStream animalStream = animalRepository.findById(animalUpdateDTO.getId())
                 .orElseThrow(() -> new RuntimeException("Animal not found"));
 
-        animal.setName(animalUpdateDTO.getName());
-        animal.setAge(animalUpdateDTO.getAge());
-        animal.setVenomous(animalUpdateDTO.isVenomous());
+        animalStream.setName(animalUpdateDTO.getName());
+        animalStream.setAge(animalUpdateDTO.getAge());
+        animalStream.setVenomous(animalUpdateDTO.isVenomous());
 
-        animalRepository.save(animal);
-        log.info("Animal updated with id={}", animal.getId());
+        animalRepository.save(animalStream);
+        log.info("Animal updated with id={}", animalStream.getId());
     }
 
     @RabbitHandler
     @Transactional
     public void delete(Long id) {
-        final Animal animal = animalRepository.findById(id)
+        final AnimalStream animalStream = animalRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Animal not found"));
-        animalRepository.delete(animal);
+        animalRepository.delete(animalStream);
         log.info("Animal deleted with id={}", id);
     }
 
