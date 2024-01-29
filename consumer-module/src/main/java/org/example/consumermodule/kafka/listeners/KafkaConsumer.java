@@ -3,6 +3,7 @@ package org.example.consumermodule.kafka.listeners;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.example.consumermodule.domain.entity.AnimalStream;
 import org.example.consumermodule.domain.repositories.AnimalRepository;
 import org.example.producermodule.domain.dto.AnimalDTO;
@@ -19,9 +20,9 @@ public class KafkaConsumer {
 
     @Transactional
     @KafkaListener(topics = "${kafka.topics.dev}", groupId = "${spring.kafka.consumer.group-id}")
-    public void listen(String message) {
-        log.info("Consumer received message: {}", message);
-        readMessage(objectMapper.convertValue(message, AnimalDTO.class));
+    public void listen(ConsumerRecord<String, String> message) {
+        log.info("Consumer received message for topic: {}", message.topic());
+        readMessage(objectMapper.convertValue(message.value(), AnimalDTO.class));
     }
 
 
