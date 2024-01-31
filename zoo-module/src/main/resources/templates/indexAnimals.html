@@ -32,7 +32,7 @@
 <body>
 <div>
   <div>
-    <form th:action="@{/animalStream/findAnimalsByName}" method="get">
+    <form th:action="@{/animal/findAnimalsByName}" method="get">
       <input id="animalNamesSearch" name="animalName" placeholder="Animal name" />
       <button type="submit" class="btn btn-primary">Search</button>
     </form>
@@ -41,7 +41,7 @@
 </body>
 <div class="container">
   <h1>List of Animals</h1>
-  <a class="btn btn-primary mb-3" th:href="@{/animalStream/create}">Add Animal</a>
+  <a class="btn btn-primary mb-3" th:href="@{/animal/create}">Add Animal</a>
   <table class="table table-bordered">
     <thead class="thead-dark">
     <tr>
@@ -55,22 +55,22 @@
     </thead>
     <canvas id="kindOfAnimalChart" width="400" height="100" class="mb-3"></canvas>
     <tbody>
-    <tr th:each="animalStream : ${lostAnimals}">
-      <td th:text="${animalStream.name}"></td>
-      <td th:text="${animalStream.kindAnimal}"></td>
-      <td th:text="${animalStream.venomous ? 'Yes' : 'No'}"></td>
-      <td th:text="${animalStream.typePowerSupply}"></td>
+    <tr th:each="animal : ${lostAnimals}">
+      <td th:text="${animal.name}"></td>
+      <td th:text="${animal.kindAnimal}"></td>
+      <td th:text="${animal.venomous ? 'Yes' : 'No'}"></td>
+      <td th:text="${animal.typePowerSupply}"></td>
       <td>
-        <img th:if="${animalStream.photo != null}" th:src="'data:image/jpeg;base64,' + ${animalStream.generateBase64Image()}" width="200" height="150" alt="Animal Photo"/>
+        <img th:if="${animal.photo != null}" th:src="'data:image/jpeg;base64,' + ${animal.generateBase64Image()}" width="200" height="150" alt="Animal Photo"/>
       </td>
       <td>
-        <form th:action="@{/animalStream/delete}" method="post">
-          <input type="hidden" name="id" th:value="${animalStream.id}"/>
+        <form th:action="@{/animal/delete}" method="post">
+          <input type="hidden" name="id" th:value="${animal.id}"/>
           <button type="submit" class="btn btn-danger">Delete</button>
         </form>
-        <a class="btn btn-info" th:href="@{'/animalStream/update/' + ${animalStream.id}}">Edit</a>
+        <a class="btn btn-info" th:href="@{'/animal/update/' + ${animal.id}}">Edit</a>
         <div class="form-group">
-          <a class="btn btn-outline-success" th:href="@{'/animalStream/countries/' + ${animalStream.id}}">Countries</a>
+          <a class="btn btn-outline-success" th:href="@{'/animal/countries/' + ${animal.id}}">Countries</a>
         </div>
       </td>
     </tr>
@@ -141,7 +141,7 @@
 
   function fetchAnimalNames(request, response) {
     $.ajax({
-      url: "/animalStream/findNames",
+      url: "/animal/findNames",
       type: "GET",
       dataType: "json",
       data: { term: request.term },
