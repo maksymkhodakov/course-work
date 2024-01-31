@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.producermodule.domain.dto.AnimalDTO;
+import org.example.producermodule.domain.dto.AnimalDeleteDTO;
 import org.example.producermodule.domain.dto.AnimalUpdateDTO;
 import org.example.producermodule.rabbitmq.service.MessageProducerWrapper;
 import org.springframework.http.ResponseEntity;
@@ -29,10 +30,9 @@ public class RabbitMqController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/rabbitmq/produce/animal/delete/{id}")
-    public ResponseEntity<Void> produceDelete(@PathVariable Long id) {
-        messageProducerWrapper.produceMessages(id);
+    @DeleteMapping("/rabbitmq/produce/animal/delete")
+    public ResponseEntity<Void> produceDelete(@RequestBody @Valid AnimalDeleteDTO animalDeleteDTO) {
+        messageProducerWrapper.produceMessages(animalDeleteDTO);
         return ResponseEntity.ok().build();
     }
-
 }

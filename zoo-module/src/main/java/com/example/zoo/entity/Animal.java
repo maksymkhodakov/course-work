@@ -35,7 +35,7 @@ public class Animal extends TimestampEntity {
     private List<Country> countries = new ArrayList<>();
 
     /**
-     * for storing photos for animals Azure Blob Storage is used
+     * For storing photos for animals AWS S3 is used
      */
     @Column(name = "photo_path")
     private String photoPath;

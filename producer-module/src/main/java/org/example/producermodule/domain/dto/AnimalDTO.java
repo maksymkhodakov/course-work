@@ -13,8 +13,16 @@ import java.io.Serializable;
 public class AnimalDTO implements Serializable {
     @NotNull
     private String name;
+
     @NotNull
-    private int age;
+    private String kindAnimal;
+
     @NotNull
-    private boolean venomous;
+    private String venomous;
+
+    @NotNull
+    private String typePowerSupply;
+
+    @NotNull
+    private String age;
 }
