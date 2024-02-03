@@ -1,8 +1,6 @@
 package com.example.zoo.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -27,4 +25,8 @@ public class AnimalStream extends TimestampEntity {
 
     @Column(name = "age")
     private String age;
+
+    @ManyToOne
+    @JoinColumn("animal_stream_load_result_id")
+    private AnimalStreamLoadResult loadResult;
 }
