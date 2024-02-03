@@ -27,6 +27,9 @@ public class AnimalStream extends TimestampEntity {
     private String age;
 
     @ManyToOne
-    @JoinColumn("animal_stream_load_result_id")
+    @JoinColumn(name = "animal_stream_load_result_id")
     private AnimalStreamLoadResult loadResult;
+
+    @Column(name = "is_processed")
+    private boolean processed;
 }

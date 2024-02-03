@@ -12,7 +12,7 @@ import com.example.zoo.mapper.CountryMapper;
 import com.example.zoo.repository.AnimalRepository;
 import com.example.zoo.repository.CountryRepository;
 import com.example.zoo.storage.config.AWSProperties;
-import com.example.zoo.storage.service.StorageService;
+import com.example.zoo.storage.service.S3Service;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -35,7 +35,7 @@ public class AnimalController {
     public static final String REDIRECT_ANIMAL_GET_ALL = "redirect:/animal/getAll";
     AnimalRepository animalRepository;
     CountryRepository countryRepository;
-    StorageService storageService;
+    S3Service s3Service;
     AWSProperties awsProperties;
     AnimalMapper animalMapper;
 
@@ -88,7 +88,7 @@ public class AnimalController {
                 .kindAnimal(kindAnimal)
                 .venomous(venomous)
                 .typePowerSupply(typePowerSupply)
-                .photoPath(storageService.uploadFile(awsProperties.getZooServiceBucketName(), file))
+                .photoPath(s3Service.uploadFile(awsProperties.getZooServiceBucketName(), file))
                 .build();
 
         animalRepository.saveAndFlush(animal);
@@ -100,7 +100,7 @@ public class AnimalController {
     public String delete(@RequestParam Long id) {
         var animal = animalRepository.findById(id)
                 .orElseThrow(() -> new OperationException(ApiErrors.ANIMAL_NOT_FOUND));
-        storageService.deleteFile(awsProperties.getZooServiceBucketName(), animal.getPhotoPath());
+        s3Service.deleteFile(awsProperties.getZooServiceBucketName(), animal.getPhotoPath());
         animalRepository.delete(animal);
         return REDIRECT_ANIMAL_GET_ALL;
     }
@@ -132,7 +132,7 @@ public class AnimalController {
         animal.setTypePowerSupply(typePowerSupply);
 
         if (file.getBytes().length != 0) {
-            animal.setPhotoPath(storageService.updateFile(awsProperties.getZooServiceBucketName(), animal.getPhotoPath(), file));
+            animal.setPhotoPath(s3Service.updateFile(awsProperties.getZooServiceBucketName(), animal.getPhotoPath(), file));
         }
 
         return REDIRECT_ANIMAL_GET_ALL;

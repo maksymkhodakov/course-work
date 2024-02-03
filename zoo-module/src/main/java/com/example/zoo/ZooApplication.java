@@ -12,10 +12,10 @@ import java.util.TimeZone;
 @SpringBootApplication
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @Import(ProducerModuleApplication.class)
-public class ZooLabApplication {
+public class ZooApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ZooLabApplication.class, args);
+        SpringApplication.run(ZooApplication.class, args);
     }
 
     @PostConstruct

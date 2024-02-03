@@ -9,7 +9,7 @@ import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 import com.amazonaws.services.s3.transfer.Upload;
 import com.example.zoo.exceptions.ApiErrors;
 import com.example.zoo.exceptions.OperationException;
-import com.example.zoo.storage.service.StorageService;
+import com.example.zoo.storage.service.S3Service;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,12 +19,12 @@ import java.util.Objects;
 
 @Service
 @Slf4j
-public class StorageServiceImpl implements StorageService {
+public class S3ServiceImpl implements S3Service {
     public static final String S3_REGEX_KEY_REGEX = "[^a-zA-Z\\d!\\-_.*`()]";
     private final AmazonS3 amazonS3;
     private final TransferManager transferManager;
 
-    public StorageServiceImpl(AmazonS3 amazonS3) {
+    public S3ServiceImpl(AmazonS3 amazonS3) {
         this.amazonS3 = amazonS3;
         this.transferManager = TransferManagerBuilder.standard().withS3Client(amazonS3).build();
     }

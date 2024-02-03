@@ -2,7 +2,7 @@ package com.example.zoo;
 
 import org.junit.jupiter.api.Test;
 
-class ZooLabApplicationTests {
+class ZooApplicationTests {
 
     @Test
     void contextLoads() {

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Animals</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+        padding: 20px;
+    }
+    .table tbody tr:nth-child(odd) {
+        background-color: #f2f2f2;
+    }
+    .btn {
+        margin-right: 5px;
+    }
+    .form-group {
+        margin-top: 10px;
+    }
+    .container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+</style>
+<body>
+<div th:replace="navbar.html"></div>
+<div class="container">
+    <h1>List of Animal Stream Loads</h1>
+    <a class="btn btn-primary mb-3" th:href="@{/animal-stream-loader/create}">Add Load</a>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Process Type</th>
+            <th scope="col">Filename</th>
+            <th scope="col">Create Date</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <canvas id="processTypeChart" width="400" height="100" class="mb-3"></canvas>
+        <tbody>
+        <tr th:each="load : ${loadedFiles}">
+            <td th:text="${load.processType}"></td>
+            <td th:text="${load.filename}"></td>
+            <td th:text="${load.createDate}"></td>
+            <td>
+                <form th:action="@{/animal-stream-loader/download}" method="post">
+                    <input type="hidden" name="id" th:value="${load.id}"/>
+                    <button type="submit" class="btn-info">Download</button>
+                </form>
+                <form th:action="@{/animal-stream-loader/delete}" method="post">
+                    <input type="hidden" name="id" th:value="${load.id}"/>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const ctx = document.getElementById('processTypeChart').getContext('2d');
+        const loadedFilesList = /*[[${loadedFiles}]]*/ [];
+        const typeCounts = {};
+
+        loadedFilesList.forEach(function (loadFile) {
+            const type = loadFile.processType;
+            if (typeCounts[type]) {
+                typeCounts[type]++;
+            } else {
+                typeCounts[type] = 1;
+            }
+        });
+
+        const kinds = Object.keys(typeCounts);
+        const kindCount = Object.values(typeCounts);
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: kinds,
+                datasets: [{
+                    label: 'Animal Load count by type',
+                    data: kindCount,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Loads'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Type'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

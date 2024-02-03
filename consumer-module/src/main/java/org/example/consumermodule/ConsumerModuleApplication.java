@@ -1,12 +1,12 @@
 package org.example.consumermodule;
 
-import com.example.zoo.ZooLabApplication;
+import com.example.zoo.ZooApplication;
 import org.example.producermodule.ProducerModuleApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
-@Import({ProducerModuleApplication.class, ZooLabApplication.class})
+@Import({ProducerModuleApplication.class, ZooApplication.class})
 @SpringBootApplication
 public class ConsumerModuleApplication {
 

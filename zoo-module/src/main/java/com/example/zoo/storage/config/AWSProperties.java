@@ -9,4 +9,5 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("aws-s3")
 public class AWSProperties {
     private String zooServiceBucketName;
+    private String zooServiceAnimalStreamLoadBucketName;
 }

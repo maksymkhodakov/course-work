@@ -1,7 +1,7 @@
 package com.example.zoo.services.impl;
 
 import com.example.zoo.storage.config.AWSProperties;
-import com.example.zoo.storage.service.StorageService;
+import com.example.zoo.storage.service.S3Service;
 import com.example.zoo.utils.SearchUtil;
 import com.example.zoo.data.AnimalData;
 import com.example.zoo.dto.AnimalDTO;
@@ -34,7 +34,7 @@ public class AnimalServiceImpl implements AnimalService {
     private final AnimalRepository animalRepository;
     private final CountryRepository countryRepository;
     private final AnimalMapper animalMapper;
-    private final StorageService storageService;
+    private final S3Service s3Service;
     private final AWSProperties awsProperties;
 
     @Override
@@ -61,7 +61,7 @@ public class AnimalServiceImpl implements AnimalService {
         animalToUpdate.setVenomous(animalData.isVenomous());
         animalToUpdate.setTypePowerSupply(animalData.getTypePowerSupply());
         animalToUpdate.setKindAnimal(animalData.getKindAnimal());
-        animalToUpdate.setPhotoPath(storageService.updateFile(awsProperties.getZooServiceBucketName(), animalToUpdate.getPhotoPath(), multipartFile));
+        animalToUpdate.setPhotoPath(s3Service.updateFile(awsProperties.getZooServiceBucketName(), animalToUpdate.getPhotoPath(), multipartFile));
     }
 
     @Override
