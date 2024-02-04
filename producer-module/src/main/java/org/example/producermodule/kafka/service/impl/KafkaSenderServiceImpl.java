@@ -16,14 +16,11 @@ import java.util.concurrent.CompletableFuture;
 @Service
 @RequiredArgsConstructor
 public class KafkaSenderServiceImpl implements KafkaSenderService {
-    @Value("${kafka.topics.dev}")
-    private String topic;
-
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
     @SneakyThrows
     @Override
-    public void produceMessages(Object object) {
+    public void produceMessages(String topic, Object object) {
         final CompletableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topic, object);
         future.whenComplete((result, ex) -> {
             if (Objects.isNull(ex)) {

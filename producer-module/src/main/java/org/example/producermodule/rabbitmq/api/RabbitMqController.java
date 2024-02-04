@@ -20,19 +20,19 @@ public class RabbitMqController {
 
     @PostMapping("/rabbitmq/produce/animal/save")
     public ResponseEntity<Void> produceCreate(@RequestBody @Valid AnimalDTO animalDTO) {
-        messageProducerWrapper.produceMessages(animalDTO);
+        messageProducerWrapper.produceDevMessages(animalDTO);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/rabbitmq/produce/animal/update")
     public ResponseEntity<Void> produceUpdate(@RequestBody @Valid AnimalUpdateDTO animalUpdateDTO) {
-        messageProducerWrapper.produceMessages(animalUpdateDTO);
+        messageProducerWrapper.produceDevMessages(animalUpdateDTO);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/rabbitmq/produce/animal/delete")
     public ResponseEntity<Void> produceDelete(@RequestBody @Valid AnimalDeleteDTO animalDeleteDTO) {
-        messageProducerWrapper.produceMessages(animalDeleteDTO);
+        messageProducerWrapper.produceDevMessages(animalDeleteDTO);
         return ResponseEntity.ok().build();
     }
 }

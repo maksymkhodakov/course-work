@@ -31,6 +31,24 @@ public class RabbitMQConfiguration {
         return BindingBuilder.bind(devQueue()).to(devExchange()).with(GlobalConstants.DEV_ROUTING_KEY);
     }
 
+    @Bean
+    public Queue animalStreamQueue() {
+        return QueueBuilder.durable(GlobalConstants.ANIMAl_QUEUE_NAME).build();
+    }
+
+    @Bean
+    public DirectExchange animalStreamExchange() {
+        return new DirectExchange(GlobalConstants.ANIMAL_EXCHANGE_NAME);
+    }
+
+    @Bean
+    public Binding animalStreamBindingMessages() {
+        return BindingBuilder
+                .bind(animalStreamQueue())
+                .to(animalStreamExchange())
+                .with(GlobalConstants.ANIMAL_ROUTING_KEY);
+    }
+
     // DLQ / DLX configuration
 
     @Bean

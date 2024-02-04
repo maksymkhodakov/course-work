@@ -1,6 +1,6 @@
 package org.example.producermodule.rabbitmq.service;
 
-
 public interface MessageProducerWrapper {
-    void produceMessages(final Object objects);
+    void produceDevMessages(final Object object);
+    void produceAnimalStreamMessages(final Object object);
 }

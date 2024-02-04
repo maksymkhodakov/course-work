@@ -15,12 +15,16 @@ public class MessageProducerWrapperImpl implements MessageProducerWrapper {
     private final RabbitTemplate rabbitTemplate;
 
     @Override
-    public void produceMessages(final Object object) {
-        log.info("Start to produce messages");
-        rabbitTemplate.convertAndSend(
-                GlobalConstants.DEV_EXCHANGE_NAME,
-                GlobalConstants.DEV_ROUTING_KEY,
-                object);
-        log.info("Finished to produce messages");
+    public void produceDevMessages(final Object object) {
+        log.info("Start to produce dev messages");
+        rabbitTemplate.convertAndSend(GlobalConstants.DEV_EXCHANGE_NAME, GlobalConstants.DEV_ROUTING_KEY, object);
+        log.info("Finished to produce dev messages");
+    }
+
+    @Override
+    public void produceAnimalStreamMessages(Object object) {
+        log.info("Start to produce animal stream messages");
+        rabbitTemplate.convertAndSend(GlobalConstants.ANIMAL_EXCHANGE_NAME, GlobalConstants.ANIMAL_ROUTING_KEY, object);
+        log.info("Finished to produce animal stream messages");
     }
 }

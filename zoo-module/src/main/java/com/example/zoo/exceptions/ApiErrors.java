@@ -21,7 +21,8 @@ public enum ApiErrors {
     RESOURCE_NOT_FOUND("Resource not found on S3 bucket"),
     FAILED_S3_UPLOAD("Failed S3 upload"),
     EMPTY_FILE("Empty file"),
-    ANIMAL_LOAD_NOT_FOUND("Animal load result not found");
+    ANIMAL_LOAD_NOT_FOUND("Animal load result not found"),
+    WRONG_FILE_EXTENSION("Wrong file extension");
 
     private final String message;
 }
