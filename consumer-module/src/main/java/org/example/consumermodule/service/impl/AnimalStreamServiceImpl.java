@@ -5,9 +5,9 @@ import com.example.zoo.repository.AnimalStreamRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.consumermodule.service.AnimalStreamService;
-import org.example.producermodule.domain.dto.AnimalDTO;
-import org.example.producermodule.domain.dto.AnimalDeleteDTO;
-import org.example.producermodule.domain.dto.AnimalUpdateDTO;
+import org.example.producermodule.dto.AnimalDTO;
+import org.example.producermodule.dto.AnimalDeleteDTO;
+import org.example.producermodule.dto.AnimalUpdateDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

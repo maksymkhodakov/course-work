@@ -1,4 +1,4 @@
-package org.example.producermodule.domain.dto;
+package org.example.producermodule.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

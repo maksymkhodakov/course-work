@@ -30,6 +30,9 @@ public class AnimalStreamLoadResult extends TimestampEntity {
     @Column(name = "s3_link")
     private String s3Link;
 
+    @Column(name = "is_processed")
+    private boolean processed;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "loadResult", cascade = CascadeType.ALL)
     @Fetch(FetchMode.SUBSELECT)
     private List<AnimalStream> animalStream = new ArrayList<>();

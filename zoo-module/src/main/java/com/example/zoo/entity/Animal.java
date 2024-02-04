@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false, exclude = {"countries"})
+@EqualsAndHashCode(callSuper = false)
 @Builder
 @Table(name = "animal")
 public class Animal extends TimestampEntity {
