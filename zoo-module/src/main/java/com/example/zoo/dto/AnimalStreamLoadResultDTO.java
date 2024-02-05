@@ -18,4 +18,5 @@ public class AnimalStreamLoadResultDTO {
     private String filename;
     private String s3Link;
     private Timestamp createDate;
+    private boolean isProcessed;
 }

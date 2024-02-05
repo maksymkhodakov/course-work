@@ -32,12 +32,12 @@ public class AnimalStreamLoadResultServiceImpl implements AnimalStreamLoadResult
     public List<AnimalStreamLoadResultDTO> getAll() {
         return animalStreamLoadResultRepository.findAll()
                 .stream()
-                .filter(AnimalStreamLoadResult::isProcessed)
                 .map(load -> AnimalStreamLoadResultDTO.builder()
                         .id(load.getId())
                         .processType(load.getProcessType())
                         .filename(load.getFilename())
                         .createDate(load.getCreateDate())
+                        .isProcessed(load.isProcessed())
                         .build())
                 .sorted(Comparator.comparing(AnimalStreamLoadResultDTO::getCreateDate, Comparator.reverseOrder()))
                 .toList();
@@ -72,7 +72,7 @@ public class AnimalStreamLoadResultServiceImpl implements AnimalStreamLoadResult
                 .processType(processType)
                 .filename(filename)
                 .s3Link(s3Link)
-                .animalStream(new ArrayList<>())
+                .animalStreams(new ArrayList<>())
                 .processed(false)
                 .build();
 

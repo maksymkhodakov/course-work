@@ -17,6 +17,10 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 public class KafkaConfig implements KafkaListenerConfigurer {
     @Value("${kafka.topics.dev}")
     private String topicName;
+
+    @Value("${kafka.topics.animal-stream}")
+    private String animalStreamTopic;
+
     private final LocalValidatorFactoryBean validator;
 
     @Override
@@ -25,8 +29,15 @@ public class KafkaConfig implements KafkaListenerConfigurer {
     }
 
     @Bean
-    public NewTopic javaTopic() {
+    public NewTopic devTopic() {
         return TopicBuilder.name(topicName)
+                .partitions(5)
+                .build();
+    }
+
+    @Bean
+    public NewTopic animalStreamTopic() {
+        return TopicBuilder.name(animalStreamTopic)
                 .partitions(5)
                 .build();
     }

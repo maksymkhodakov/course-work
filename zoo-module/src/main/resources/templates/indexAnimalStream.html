@@ -38,6 +38,7 @@
             <th scope="col">Process Type</th>
             <th scope="col">Filename</th>
             <th scope="col">Create Date</th>
+            <th scope="col">Processed</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
@@ -47,6 +48,7 @@
             <td th:text="${load.processType}"></td>
             <td th:text="${load.filename}"></td>
             <td th:text="${load.createDate}"></td>
+            <td th:text="${load.processed ? 'Yes' : 'No'}"></td>
             <td>
                 <form th:action="@{/animal-stream-loader/download}" method="post">
                     <input type="hidden" name="id" th:value="${load.id}"/>

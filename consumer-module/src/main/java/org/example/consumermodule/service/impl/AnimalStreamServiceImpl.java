@@ -1,36 +1,73 @@
 package org.example.consumermodule.service.impl;
 
 import com.example.zoo.entity.AnimalStream;
+import com.example.zoo.entity.AnimalStreamLoadResult;
+import com.example.zoo.exceptions.ApiErrors;
+import com.example.zoo.exceptions.OperationException;
+import com.example.zoo.repository.AnimalStreamLoadResultRepository;
 import com.example.zoo.repository.AnimalStreamRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.consumermodule.service.AnimalStreamService;
-import org.example.producermodule.dto.AnimalDTO;
-import org.example.producermodule.dto.AnimalDeleteDTO;
-import org.example.producermodule.dto.AnimalUpdateDTO;
+import org.example.producermodule.dto.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class AnimalStreamServiceImpl implements AnimalStreamService {
     private final AnimalStreamRepository animalStreamRepository;
+    private final AnimalStreamLoadResultRepository animalStreamLoadResultRepository;
+
+    @Override
+    @Transactional
+    public void saveLoad(AnimalStreamDTO animalStreamDTO) {
+        final AnimalStreamLoadResult animalStreamLoadResult = animalStreamLoadResultRepository.findById(animalStreamDTO.getLoadId())
+                .orElseThrow(() -> new OperationException(ApiErrors.ANIMAL_LOAD_NOT_FOUND));
+
+        final List<AnimalStream> animalStreams = animalStreamDTO.getAnimalStream()
+                .stream()
+                .map(this::buildAnimalStream)
+                .toList();
+
+        animalStreams.forEach(animalStreamLoadResult::addAnimalStream);
+        animalStreamLoadResult.setProcessed(true);
+
+        animalStreamLoadResultRepository.save(animalStreamLoadResult);
+    }
 
     @Override
     @Transactional
     public void save(AnimalDTO animalDTO) {
         log.info("Consumer received message value: {}", animalDTO);
-        final AnimalStream animalStream = AnimalStream.builder()
+        final AnimalStream animalStream = buildAnimalStream(animalDTO);
+        final AnimalStream savedAnimal = animalStreamRepository.save(animalStream);
+        log.info("Animal with id={} was saved to DB",savedAnimal.getId());
+    }
+
+    private AnimalStream buildAnimalStream(AnimalDTO animalDTO) {
+        return AnimalStream.builder()
                 .name(animalDTO.getName())
                 .age(animalDTO.getAge())
                 .venomous(animalDTO.getVenomous())
                 .typePowerSupply(animalDTO.getTypePowerSupply())
                 .age(animalDTO.getAge())
+                .processed(false)
                 .build();
+    }
 
-        final AnimalStream savedAnimal = animalStreamRepository.save(animalStream);
-        log.info("Animal with id={} was saved to DB",savedAnimal.getId());
+    private AnimalStream buildAnimalStream(AnimalStreamFileDTO animalDTO) {
+        return AnimalStream.builder()
+                .name(animalDTO.getName())
+                .age(animalDTO.getAge())
+                .venomous(animalDTO.getVenomous())
+                .typePowerSupply(animalDTO.getTypePowerSupply())
+                .age(animalDTO.getAge())
+                .processed(false)
+                .build();
     }
 
     @Override

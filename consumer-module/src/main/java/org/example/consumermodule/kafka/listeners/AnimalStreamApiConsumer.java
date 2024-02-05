@@ -22,7 +22,7 @@ import static org.springframework.kafka.retrytopic.DltStrategy.FAIL_ON_ERROR;
 @Service
 @RequiredArgsConstructor
 @KafkaListener(topics = "${kafka.topics.dev}", groupId = "${spring.kafka.consumer.group-id}")
-public class KafkaConsumer {
+public class AnimalStreamApiConsumer {
     private final AnimalStreamService animalStreamService;
 
     @Transactional

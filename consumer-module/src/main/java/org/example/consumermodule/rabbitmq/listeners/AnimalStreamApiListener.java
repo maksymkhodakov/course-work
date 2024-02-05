@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @RabbitListener(queues = {GlobalConstants.DEV_QUEUE_NAME})
-public class AnimalCreationListener {
+public class AnimalStreamApiListener {
     private final AnimalStreamService animalStreamService;
 
     @RabbitHandler

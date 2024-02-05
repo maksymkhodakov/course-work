@@ -9,6 +9,7 @@ import org.hibernate.annotations.FetchMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -35,5 +36,12 @@ public class AnimalStreamLoadResult extends TimestampEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "loadResult", cascade = CascadeType.ALL)
     @Fetch(FetchMode.SUBSELECT)
-    private List<AnimalStream> animalStream = new ArrayList<>();
+    private List<AnimalStream> animalStreams = new ArrayList<>();
+
+    public void addAnimalStream(AnimalStream animalStream) {
+        if (Objects.nonNull(animalStream)) {
+            this.animalStreams.add(animalStream);
+            animalStream.setLoadResult(this);
+        }
+    }
 }

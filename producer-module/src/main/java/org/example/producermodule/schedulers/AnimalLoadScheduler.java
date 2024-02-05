@@ -16,11 +16,12 @@ import java.util.List;
 public class AnimalLoadScheduler {
     private final AnimalLoadProcessor processor;
     private final AnimalStreamLoadResultRepository animalStreamLoadResultRepository;
+
     @Scheduled(cron = "${animal.load.cron}")
     public void animalLoad() {
         log.info("Start executing animal load cron job");
 
-        final List<AnimalStreamLoadResult> loadsToProcess = animalStreamLoadResultRepository.getAnimalStreamLoadResultByProcessedIsTrue();
+        final List<AnimalStreamLoadResult> loadsToProcess = animalStreamLoadResultRepository.getAnimalStreamLoadResultByProcessedIsFalse();
 
         log.info("Found {} loads to process", loadsToProcess.size());
 

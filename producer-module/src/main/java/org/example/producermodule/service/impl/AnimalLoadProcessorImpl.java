@@ -5,6 +5,7 @@ import com.example.zoo.enums.AnimalStreamProcessType;
 import com.example.zoo.storage.config.AWSProperties;
 import com.example.zoo.storage.service.S3Service;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.producermodule.dto.AnimalStreamDTO;
 import org.example.producermodule.dto.AnimalStreamFileDTO;
 import org.example.producermodule.kafka.service.KafkaSenderService;
@@ -16,10 +17,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AnimalLoadProcessorImpl implements AnimalLoadProcessor {
-    @Value("${kafka.topics.dev}")
+    @Value("${kafka.topics.animal-stream}")
     private String topic;
 
     private final S3Service s3Service;
@@ -49,8 +51,10 @@ public class AnimalLoadProcessorImpl implements AnimalLoadProcessor {
     private void sendToBroker(AnimalStreamProcessType type, AnimalStreamDTO animalStreamDTO) {
         if (type == AnimalStreamProcessType.RABBIT_MQ) {
             messageProducerWrapper.produceAnimalStreamMessages(animalStreamDTO);
+            log.info("Producer sent animal load to RabbitMQ");
         } else {
             kafkaSenderService.produceMessages(topic, animalStreamDTO);
+            log.info("Producer sent animal load to Kafka");
         }
     }
 }
