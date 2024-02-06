@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.consumermodule.service.AnimalStreamService;
 import org.example.producermodule.dto.AnimalStreamDTO;
+import org.springframework.kafka.annotation.DltHandler;
 import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.annotation.RetryableTopic;
@@ -30,5 +31,12 @@ public class AnimalStreamLoadConsumer {
     public void handleAnimalStream(@Payload AnimalStreamDTO animalStreamDTO) {
         log.info("Kafka got an object: {}", animalStreamDTO);
         animalStreamService.saveLoad(animalStreamDTO);
+    }
+
+
+    // for keeping sure kafka works fine
+    @DltHandler
+    public void handleDLT(@Payload AnimalStreamDTO animalStreamDTO) {
+        log.info("Animal stream object={} in Kafka dlt", animalStreamDTO);
     }
 }

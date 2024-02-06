@@ -21,7 +21,14 @@ public class AnimalMapper {
                 .kindAnimal(animal.getKindAnimal())
                 .typePowerSupply(animal.getTypePowerSupply())
                 .venomous(animal.isVenomous())
-                .photo(s3Service.downloadFile(awsProperties.getZooServiceBucketName(), animal.getPhotoPath()))
+                .photo(getBytes(animal))
                 .build();
+    }
+
+    private byte[] getBytes(Animal animal) {
+        if (animal.getPhotoPath() == null || animal.getPhotoPath().isEmpty()) {
+            return new byte[0];
+        }
+        return s3Service.downloadFile(awsProperties.getZooServiceBucketName(), animal.getPhotoPath());
     }
 }

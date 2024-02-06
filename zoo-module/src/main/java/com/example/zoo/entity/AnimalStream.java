@@ -31,5 +31,8 @@ public class AnimalStream extends TimestampEntity {
     private AnimalStreamLoadResult loadResult;
 
     @Column(name = "is_processed")
-    private boolean processed;
+    private Boolean processed;
+
+    @Column(name = "error_msg")
+    private String errorMessage;
 }
