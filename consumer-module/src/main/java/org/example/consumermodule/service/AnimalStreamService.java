@@ -14,4 +14,5 @@ public interface AnimalStreamService {
     void save(AnimalDTO animalDTO);
     void update(AnimalUpdateDTO animalUpdateDTO);
     void delete(AnimalDeleteDTO animalDeleteDTO);
+    void markErrorProcessed(Long loadId);
 }

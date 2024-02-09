@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface AnimalStreamLoadResultRepository extends JpaRepository<AnimalStreamLoadResult, Long> {
     List<AnimalStreamLoadResult> getAnimalStreamLoadResultByProcessedIsFalse();
+    List<AnimalStreamLoadResult> getAnimalStreamLoadResultByToDeleteIsTrue();
 }

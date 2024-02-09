@@ -18,7 +18,7 @@ public class AnimalStreamLoadListener {
     private final AnimalStreamService animalStreamService;
 
     @RabbitHandler
-    public void handleAnimalStream(@Payload AnimalStreamDTO animalStreamDTO) {
+    public void handleAnimalStreamDlt(@Payload AnimalStreamDTO animalStreamDTO) {
         log.info("Rabbit mq got an object: {}", animalStreamDTO);
         animalStreamService.saveLoad(animalStreamDTO);
     }

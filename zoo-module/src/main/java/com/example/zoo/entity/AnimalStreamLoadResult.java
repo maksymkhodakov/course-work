@@ -34,6 +34,9 @@ public class AnimalStreamLoadResult extends TimestampEntity {
     @Column(name = "is_processed")
     private boolean processed;
 
+    @Column(name = "is_to_delete")
+    private Boolean toDelete;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "loadResult", cascade = CascadeType.ALL)
     @Fetch(FetchMode.SUBSELECT)
     private List<AnimalStream> animalStreams = new ArrayList<>();

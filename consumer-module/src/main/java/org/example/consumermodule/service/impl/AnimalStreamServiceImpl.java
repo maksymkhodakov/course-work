@@ -17,10 +17,7 @@ import org.example.producermodule.dto.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -208,5 +205,15 @@ public class AnimalStreamServiceImpl implements AnimalStreamService {
                 .orElseThrow(() -> new RuntimeException("Animal in kafka not found"));
         animalStreamRepository.delete(animalStream);
         log.info("Animal in kafka deleted with id={}", animalDeleteDTO.getId());
+    }
+
+    @Override
+    @Transactional
+    public void markErrorProcessed(Long loadId) {
+        final Optional<AnimalStreamLoadResult> animalStreamLoadResult = animalStreamLoadResultRepository.findById(loadId);
+        animalStreamLoadResult.ifPresent(load -> {
+            load.setToDelete(true);
+            animalStreamLoadResultRepository.save(load);
+        });
     }
 }

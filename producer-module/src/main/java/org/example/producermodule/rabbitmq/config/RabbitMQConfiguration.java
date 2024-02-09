@@ -33,7 +33,9 @@ public class RabbitMQConfiguration {
 
     @Bean
     public Queue animalStreamQueue() {
-        return QueueBuilder.durable(GlobalConstants.ANIMAl_QUEUE_NAME).build();
+        return QueueBuilder.durable(GlobalConstants.ANIMAl_QUEUE_NAME)
+                .withArgument("x-dead-letter-exchange", GlobalConstants.DLX_NAME)
+                .build();
     }
 
     @Bean
