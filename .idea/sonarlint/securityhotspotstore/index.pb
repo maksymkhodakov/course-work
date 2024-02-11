@@ -441,12 +441,6 @@ Gzoo-module/src/main/java/com/example/zoo/dto/AnimalStreamResultDTO.java,7/3/73
 Kzoo-module/src/main/java/com/example/zoo/services/FailureStreamService.java,9/5/952c9accc8b6b7404a78090913c39d969e845690
 Ñ
 Tzoo-module/src/main/java/com/example/zoo/services/impl/FailureStreamServiceImpl.java,8/2/8279439640315d33442172e589727f8e76a0efdb
-S
-#rabbitmq/mnesia/rabbit@rabbitmq.pid,4/d/4d2abbc0cf6914c061c5647f3ce8c9c99c478796
-â
-Yconsumer-module/src/main/java/org/example/consumermodule/kafka/listeners/KafkaConfig.java,9/2/92f2c2426b05f71427a74d76b5f60a19616208ad
-è
-_consumer-module/src/main/java/org/example/consumermodule/kafka/listeners/KafkaMapperConfig.java,c/f/cff1e7964ebe6b331d8452acb7ecc57d40bad75c
 ä
 Zconsumer-module/src/main/java/org/example/consumermodule/scheduler/DeadLoadsScheduler.java,1/0/10e431968cb98f28d84a4f29095c059d1d9cca1d
 w
@@ -1178,16 +1172,6 @@ G.idea/sonarlint/issuestore/9/5/952c9accc8b6b7404a78090913c39d969e845690,b/d/bd
 Å
 Q.idea/sonarlint/securityhotspotstore/9/5/952c9accc8b6b7404a78090913c39d969e845690,4/f/4f94ef126e195b200d97d2e0e95e2816fea5cd85
 Å
-Q.idea/sonarlint/securityhotspotstore/9/2/92f2c2426b05f71427a74d76b5f60a19616208ad,5/9/59d5163e8f15da7085eb23e03d1457bcd3c1e28b
-w
-G.idea/sonarlint/issuestore/4/d/4d2abbc0cf6914c061c5647f3ce8c9c99c478796,8/d/8d1cd42477faa212cdbb7815ecbe6c2ce3e2a7b9
-Å
-Q.idea/sonarlint/securityhotspotstore/4/d/4d2abbc0cf6914c061c5647f3ce8c9c99c478796,2/5/254a3047356084160e11f08d650b22d2370e9771
-w
-G.idea/sonarlint/issuestore/9/2/92f2c2426b05f71427a74d76b5f60a19616208ad,c/0/c0bb9320319b063e6cd5892bd5b894b44a549438
-Å
-Q.idea/sonarlint/securityhotspotstore/c/f/cff1e7964ebe6b331d8452acb7ecc57d40bad75c,4/a/4af8e2e5b9276041a77f8b414f74a48a6daa8d4c
-Å
 Q.idea/sonarlint/securityhotspotstore/2/b/2b0456ceb231802d78e3d0d93554b533b0529a77,f/b/fbc7e17efe656829cf56f51f464897305dea0101
 Å
 Q.idea/sonarlint/securityhotspotstore/e/4/e43f5155b7b2d1ee363f472bd9742ad0ebf89d57,f/a/fa1d101584ff34110e67986c2a0632a04b6112cd
@@ -1203,3 +1187,5 @@ w
 G.idea/sonarlint/issuestore/e/4/e43f5155b7b2d1ee363f472bd9742ad0ebf89d57,3/9/39b7ef1263c0cdf6ef949e34c933986892cc16c8
 Å
 Q.idea/sonarlint/securityhotspotstore/9/e/9e25851bbd4fdbfdc7a505d92ce5ac75a7b87c9d,2/e/2e33d19761a7f506248d79dec6a83f6d82edd1fc
+S
+#rabbitmq/mnesia/rabbit@rabbitmq.pid,4/d/4d2abbc0cf6914c061c5647f3ce8c9c99c478796

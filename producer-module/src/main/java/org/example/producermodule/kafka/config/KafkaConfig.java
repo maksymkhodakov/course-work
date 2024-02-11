@@ -21,9 +21,6 @@ public class KafkaConfig implements KafkaListenerConfigurer {
     @Value("${kafka.topics.animal-stream}")
     private String animalStreamTopic;
 
-    @Value("${kafka.topics.animal-stream-dlt}")
-    private String animalStreamDltTopic;
-
     private final LocalValidatorFactoryBean validator;
 
     @Override
@@ -41,13 +38,6 @@ public class KafkaConfig implements KafkaListenerConfigurer {
     @Bean
     public NewTopic animalStreamTopic() {
         return TopicBuilder.name(animalStreamTopic)
-                .partitions(5)
-                .build();
-    }
-
-    @Bean
-    public NewTopic dltTopic() {
-        return TopicBuilder.name(animalStreamDltTopic)
                 .partitions(5)
                 .build();
     }
