@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/zoo")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ZooController {
+    private static final String REDIRECT_ZOO_GET_ALL = "redirect:/zoo/getAll";
     ZooRepository zooRepository;
     CountryRepository countryRepository;
     AnimalRepository animalRepository;
@@ -59,7 +60,7 @@ public class ZooController {
                 .location(country)
                 .build();
         zooRepository.saveAndFlush(zoo);
-        return "redirect:/zoo/getAll";
+        return REDIRECT_ZOO_GET_ALL;
     }
 
     @PostMapping("/delete")
@@ -67,7 +68,7 @@ public class ZooController {
         var zoo = zooRepository.findById(id)
                 .orElseThrow(() -> new OperationException(ApiErrors.ZOO_NOT_FOUND));
         zooRepository.delete(zoo);
-        return "redirect:/zoo/getAll";
+        return REDIRECT_ZOO_GET_ALL;
     }
 
     @GetMapping("/update/{id}")
@@ -98,7 +99,7 @@ public class ZooController {
         zoo.setName(name);
         zoo.setSquare(square);
         zoo.setLocation(country);
-        return "redirect:/zoo/getAll";
+        return REDIRECT_ZOO_GET_ALL;
     }
 
     @GetMapping("/animals/{id}")

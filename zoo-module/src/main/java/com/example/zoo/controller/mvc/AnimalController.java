@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller
@@ -100,7 +101,9 @@ public class AnimalController {
     public String delete(@RequestParam Long id) {
         var animal = animalRepository.findById(id)
                 .orElseThrow(() -> new OperationException(ApiErrors.ANIMAL_NOT_FOUND));
-        s3Service.deleteFile(awsProperties.getZooServiceBucketName(), animal.getPhotoPath());
+        if (Objects.nonNull(animal.getPhotoPath()) && !animal.getPhotoPath().isEmpty()) {
+            s3Service.deleteFile(awsProperties.getZooServiceBucketName(), animal.getPhotoPath());
+        }
         animalRepository.delete(animal);
         return REDIRECT_ANIMAL_GET_ALL;
     }
