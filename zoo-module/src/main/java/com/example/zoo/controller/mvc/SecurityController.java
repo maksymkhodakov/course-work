@@ -15,28 +15,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @RequiredArgsConstructor
 public class SecurityController {
-    public static final String LOGIN = "login";
+    private static final String LOGIN = "login";
+    private static final String ERROR = "error";
     private final SecureBasicAuthenticationService secureBasicAuthenticationService;
 
     @GetMapping("/")
     public String getLoginForm(Model model) {
         final LoginData user = new LoginData();
         model.addAttribute("user", user);
+        model.addAttribute(ERROR, null);
         return LOGIN;
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("user") LoginData user,
+    public String loginTry(@Valid @ModelAttribute("user") LoginData user,
                         BindingResult result,
                         Model model) {
         if (result.hasErrors()) {
             model.addAttribute("user", user);
+            model.addAttribute(ERROR, null);
             return LOGIN;
         }
         try {
             secureBasicAuthenticationService.login(user);
         } catch (Exception e) {
             model.addAttribute("user", user);
+            model.addAttribute(ERROR, e.getMessage());
             return LOGIN;
         }
         return "redirect:/home";
