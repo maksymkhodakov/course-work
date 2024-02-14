@@ -1187,5 +1187,3 @@ w
 G.idea/sonarlint/issuestore/e/4/e43f5155b7b2d1ee363f472bd9742ad0ebf89d57,3/9/39b7ef1263c0cdf6ef949e34c933986892cc16c8
 Å
 Q.idea/sonarlint/securityhotspotstore/9/e/9e25851bbd4fdbfdc7a505d92ce5ac75a7b87c9d,2/e/2e33d19761a7f506248d79dec6a83f6d82edd1fc
-S
-#rabbitmq/mnesia/rabbit@rabbitmq.pid,4/d/4d2abbc0cf6914c061c5647f3ce8c9c99c478796

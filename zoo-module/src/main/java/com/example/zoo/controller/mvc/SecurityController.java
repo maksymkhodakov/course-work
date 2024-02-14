@@ -63,6 +63,6 @@ public class SecurityController {
             return "register";
         }
         secureBasicAuthenticationService.register(user);
-        return "redirect:/register?success";
+        return "redirect:/?success";
     }
 }
