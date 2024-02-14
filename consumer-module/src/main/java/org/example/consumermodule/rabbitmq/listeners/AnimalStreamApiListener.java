@@ -2,6 +2,7 @@ package org.example.consumermodule.rabbitmq.listeners;
 
 import org.example.consumermodule.service.AnimalStreamService;
 import org.example.producermodule.dto.AnimalDeleteDTO;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,19 +22,19 @@ public class AnimalStreamApiListener {
 
     @RabbitHandler
     @Transactional
-    public void save(AnimalDTO animalDTO) {
+    public void save(@Payload AnimalDTO animalDTO) {
         animalStreamService.save(animalDTO);
     }
 
     @RabbitHandler
     @Transactional
-    public void update(AnimalUpdateDTO animalUpdateDTO) {
+    public void update(@Payload AnimalUpdateDTO animalUpdateDTO) {
         animalStreamService.update(animalUpdateDTO);
     }
 
     @RabbitHandler
     @Transactional
-    public void delete(AnimalDeleteDTO animalDeleteDTO) {
+    public void delete(@Payload AnimalDeleteDTO animalDeleteDTO) {
         animalStreamService.delete(animalDeleteDTO);
     }
 }
