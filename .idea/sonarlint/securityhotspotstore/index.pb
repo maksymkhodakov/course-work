@@ -1187,3 +1187,15 @@ w
 G.idea/sonarlint/issuestore/e/4/e43f5155b7b2d1ee363f472bd9742ad0ebf89d57,3/9/39b7ef1263c0cdf6ef949e34c933986892cc16c8
 Å
 Q.idea/sonarlint/securityhotspotstore/9/e/9e25851bbd4fdbfdc7a505d92ce5ac75a7b87c9d,2/e/2e33d19761a7f506248d79dec6a83f6d82edd1fc
+ô
+iconsumer-module/src/main/java/org/example/consumermodule/kafka/listeners/AnimalStreamApiSaveConsumer.java,b/1/b1d10f4e170ca19a1a94a9d9daf65b4976489692
+õ
+kconsumer-module/src/main/java/org/example/consumermodule/kafka/listeners/AnimalStreamApiUpdateConsumer.java,a/7/a708fa108d94c28eeeec304660d89d834ee582bc
+õ
+kconsumer-module/src/main/java/org/example/consumermodule/kafka/listeners/AnimalStreamApiDeleteConsumer.java,b/2/b24b2bc80e8ffe6c26818d052bb5096a248f7f50
+â
+Yproducer-module/src/main/java/org/example/producermodule/kafka/config/ConstantConfig.java,f/b/fb6c71acf42f27dee39d89ae07bb38492597016c
+Ü
+Vproducer-module/src/main/java/org/example/producermodule/kafka/config/TopicConfig.java,8/9/8997c78719048c555eb5343e7e298164bf6821a6
+ä
+Zproducer-module/src/main/java/org/example/producermodule/kafka/config/TopicNameConfig.java,9/6/9630fd902a042297eeac495754446b4202497a43

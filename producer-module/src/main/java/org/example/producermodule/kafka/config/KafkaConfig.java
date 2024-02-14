@@ -2,7 +2,6 @@ package org.example.producermodule.kafka.config;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -15,12 +14,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @EnableKafka
 @RequiredArgsConstructor
 public class KafkaConfig implements KafkaListenerConfigurer {
-    @Value("${kafka.topics.dev}")
-    private String topicName;
-
-    @Value("${kafka.topics.animal-stream}")
-    private String animalStreamTopic;
-
+    private final TopicNameConfig topicNameConfig;
     private final LocalValidatorFactoryBean validator;
 
     @Override
@@ -29,15 +23,29 @@ public class KafkaConfig implements KafkaListenerConfigurer {
     }
 
     @Bean
-    public NewTopic devTopic() {
-        return TopicBuilder.name(topicName)
+    public NewTopic devSaveTopic() {
+        return TopicBuilder.name(topicNameConfig.getDevSave())
+                .partitions(5)
+                .build();
+    }
+
+    @Bean
+    public NewTopic devUpdateTopic() {
+        return TopicBuilder.name(topicNameConfig.getDevUpdate())
+                .partitions(5)
+                .build();
+    }
+
+    @Bean
+    public NewTopic devDeleteTopic() {
+        return TopicBuilder.name(topicNameConfig.getDevDelete())
                 .partitions(5)
                 .build();
     }
 
     @Bean
     public NewTopic animalStreamTopic() {
-        return TopicBuilder.name(animalStreamTopic)
+        return TopicBuilder.name(topicNameConfig.getAnimalStream())
                 .partitions(5)
                 .build();
     }

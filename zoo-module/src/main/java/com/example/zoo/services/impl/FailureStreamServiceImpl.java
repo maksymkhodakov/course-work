@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -45,7 +46,7 @@ public class FailureStreamServiceImpl implements FailureStreamService {
                 .venomous(animalStream.getVenomous())
                 .uploadedDate(animalStream.getCreateDate())
                 .errorMessage(animalStream.getErrorMessage())
-                .filename(animalStream.getLoadResult().getFilename())
+                .filename(Objects.isNull(animalStream.getLoadResult()) ? null : animalStream.getLoadResult().getFilename())
                 .build();
     }
 }

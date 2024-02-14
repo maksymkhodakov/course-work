@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.producermodule.dto.AnimalStreamDTO;
 import org.example.producermodule.dto.AnimalStreamFileDTO;
+import org.example.producermodule.kafka.config.TopicNameConfig;
 import org.example.producermodule.kafka.service.KafkaSenderService;
 import org.example.producermodule.rabbitmq.service.MessageProducerWrapper;
 import org.example.producermodule.service.AnimalLoadProcessor;
@@ -21,9 +22,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AnimalLoadProcessorImpl implements AnimalLoadProcessor {
-    @Value("${kafka.topics.animal-stream}")
-    private String topic;
-
+    private final TopicNameConfig topicNameConfig;
     private final S3Service s3Service;
     private final AWSProperties awsProperties;
     private final FileReader fileReader;
@@ -53,7 +52,7 @@ public class AnimalLoadProcessorImpl implements AnimalLoadProcessor {
             messageProducerWrapper.produceAnimalStreamMessages(animalStreamDTO);
             log.info("Producer sent animal load to RabbitMQ");
         } else {
-            kafkaSenderService.produceMessages(topic, animalStreamDTO);
+            kafkaSenderService.produceMessages(topicNameConfig.getAnimalStream(), animalStreamDTO);
             log.info("Producer sent animal load to Kafka");
         }
     }
