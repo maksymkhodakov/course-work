@@ -7,20 +7,34 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            background-image: url('https://source.unsplash.com/1920x1080/?zoo,animalStream');
+            background-image: url('https://source.unsplash.com/1920x1080/?zoo,animals');
             background-size: cover;
             background-attachment: fixed;
             background-repeat: no-repeat;
             background-position: center;
         }
         .zoo-header {
-            background-color: rgba(255, 171, 64, 0.8);
+            background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
-            padding: 40px; /* Adjust the padding as needed */
+            padding: 40px;
             margin-bottom: 20px;
             display: flex;
-            justify-content: center; /* Horizontal centering */
-            align-items: center; /* Vertical centering */
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+        .zoo-header p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .additional-content {
+            margin-top: 20px; /* Adjust the margin as needed */
+            text-align: center;
+        }
+        .additional-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
         }
     </style>
     <div th:replace="navbar.html"></div>
@@ -28,7 +42,14 @@
 <body>
 <div class="container mt-5">
     <div class="zoo-header">
-        <h1>Hello dear user! Welcome to zoo system website!</h1>
+        <h1>Hello dear user! Welcome to the Zoo System website!</h1>
+        <p>Explore the fascinating world of animals and discover the wonders of the zoo.</p>
+        <p>Also, feel free to try our mass animal loader microservice functional!</p>
+        <p>And remember: A green and peaceful future is our quest.</p>
+        <div class="additional-content">
+            <p>Stay tuned!</p>
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaXc5ejF5NzJiNnRybHA0dTdnbW94dTl2ZWExNmI4bW82aTk5eDRjeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vgMmIZoHbR7bi/giphy.gif" alt="Dancing Animals GIF">
+        </div>
     </div>
 </div>
 
