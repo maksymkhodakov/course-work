@@ -8,16 +8,22 @@ Create page for file animal stream upload (file is saved to separate AWS S3 buck
 (which will have a field by which identify what message broker to choose for processing) stores in db, create page for   
 'load result' view
 
-## producer-module: DONE
+## producer-module:
 
 Basic stream functionality:
 Producer will have a schedule task which reads data from db, (load uploaded file from S3 bucket) and based on field of  
 'load_result' sends it to appropriate queue/topic to be published by either Kafka ot RabbitMQ. Also provides a REST API  
 for manual creation of animal streams 
 
-## consumer-module: DONE
+## consumer-module:
 
 Basic stream functionality:
 Accepts 'animal_stream' values from RabbiMQ/Kafka and transforms it to 'animal' entity and persists it in DB  
 all processed animals can be seen on existing api endpoints. Accepts both manually requested either via REST API  
 of producer module or by file upload. 
+
+
+## Tech note:
+* App support classic security (email + password) for MVC and both classic and OAuth2 for REST API.
+* Both Kafka and RabbitMQ functionality support DLT/DLX handling approach
+* REST API supports authorization and provide limited access for some endpoints
