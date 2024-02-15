@@ -12,7 +12,7 @@
     <artifactId>zoo-module</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>zoo-lab</name>
-    <description>zoo-lab</description>
+    <description>zoo-module</description>
     <properties>
         <java.version>17</java.version>
         <springdoc-openapi-starter-webmvc-ui.version>2.0.4</springdoc-openapi-starter-webmvc-ui.version>

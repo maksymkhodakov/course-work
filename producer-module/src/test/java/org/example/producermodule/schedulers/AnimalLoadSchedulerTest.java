@@ -3,7 +3,6 @@ package org.example.producermodule.schedulers;
 import com.example.zoo.entity.AnimalStreamLoadResult;
 import com.example.zoo.repository.AnimalStreamLoadResultRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.example.producermodule.service.AnimalLoadProcessor;
