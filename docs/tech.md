@@ -27,3 +27,4 @@ of producer module or by file upload.
 * App support classic security (email + password) for MVC and both classic and OAuth2 for REST API.
 * Both Kafka and RabbitMQ functionality support DLT/DLX handling approach
 * REST API supports authorization and provide limited access for some endpoints
+* Services and some endpoints covered by unit tests
