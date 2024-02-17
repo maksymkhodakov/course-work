@@ -34,6 +34,11 @@ public class AnimalLoadResultController {
         return animalStreamLoadResultService.getResource(id);
     }
 
+    @PostMapping("/download-template")
+    public ResponseEntity<byte[]> downloadTemplate() {
+        return animalStreamLoadResultService.getTemplate();
+    }
+
     @PostMapping("/delete")
     public String delete(@RequestParam Long id) {
         animalStreamLoadResultService.delete(id);

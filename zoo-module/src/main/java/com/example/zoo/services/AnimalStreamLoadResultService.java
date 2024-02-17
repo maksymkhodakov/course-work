@@ -15,4 +15,6 @@ public interface AnimalStreamLoadResultService {
     void save(AnimalStreamProcessType processType, MultipartFile file);
 
     ResponseEntity<byte[]> getResource(Long id);
+
+    ResponseEntity<byte[]> getTemplate();
 }

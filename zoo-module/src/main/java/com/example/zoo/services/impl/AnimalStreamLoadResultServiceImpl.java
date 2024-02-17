@@ -10,6 +10,9 @@ import com.example.zoo.services.AnimalStreamLoadResultService;
 import com.example.zoo.storage.config.AWSProperties;
 import com.example.zoo.storage.service.S3Service;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -90,5 +93,15 @@ public class AnimalStreamLoadResultServiceImpl implements AnimalStreamLoadResult
                 .header("content-disposition", "attachment; filename=" + load.getFilename())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(bytes);
+    }
+
+    @SneakyThrows
+    @Override
+    public ResponseEntity<byte[]> getTemplate() {
+        final Resource resource = new ClassPathResource("templates/template.xlsx");
+        return ResponseEntity.ok()
+                .header("content-disposition", "attachment; filename=" + resource.getFilename())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource.getInputStream().readAllBytes());
     }
 }
