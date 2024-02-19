@@ -1,5 +1,7 @@
 package org.example.consumermodule.rabbitmq.listeners;
 
+import com.example.zoo.entity.AnimalStream;
+import com.example.zoo.services.FailureStreamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.consumermodule.service.AnimalStreamService;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class DLQListener {
     private final AnimalStreamService animalStreamService;
+    private final FailureStreamService failureStreamService;
 
     @RabbitHandler
     public void handleAnimalStreamError(@Payload AnimalStreamDTO animalStreamDTO) {
@@ -29,15 +32,34 @@ public class DLQListener {
     @RabbitHandler
     public void handleAnimalSaveError(@Payload AnimalDTO animalDTO) {
         log.info("Rabbit mq got an ERROR object: {}, during save", animalDTO);
+        failureStreamService.saveUnprocessed(AnimalStream.builder()
+                .kindAnimal(animalDTO.getKindAnimal())
+                .age(animalDTO.getAge())
+                .name(animalDTO.getName())
+                .typePowerSupply(animalDTO.getTypePowerSupply())
+                .venomous(animalDTO.getVenomous())
+                .errorMessage("Save animal error")
+                .build());
     }
 
     @RabbitHandler
     public void handleAnimalUpdateError(@Payload AnimalUpdateDTO animalUpdateDTO) {
         log.info("Rabbit mq got an ERROR object: {}, during update", animalUpdateDTO);
+        failureStreamService.saveUnprocessed(AnimalStream.builder()
+                .kindAnimal(animalUpdateDTO.getKindAnimal())
+                .age(animalUpdateDTO.getAge())
+                .name(animalUpdateDTO.getName())
+                .typePowerSupply(animalUpdateDTO.getTypePowerSupply())
+                .venomous(animalUpdateDTO.getVenomous())
+                .errorMessage("Save animal update id=" + animalUpdateDTO.getId())
+                .build());
     }
 
     @RabbitHandler
     public void handleAnimalDeleteError(@Payload AnimalDeleteDTO animalDeleteDTO) {
         log.info("Rabbit mq got an ERROR object: {}, during delete", animalDeleteDTO);
+        failureStreamService.saveUnprocessed(AnimalStream.builder()
+                .errorMessage("Delete animal with id=" + animalDeleteDTO.getId())
+                .build());
     }
 }

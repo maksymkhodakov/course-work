@@ -12,35 +12,39 @@
             background-attachment: fixed;
             background-repeat: no-repeat;
             background-position: center;
+            margin: 0;
+            padding: 0;
         }
         .zoo-header {
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
             padding: 40px;
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: center;
             color: #333;
+        }
+        .zoo-header h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
         }
         .zoo-header p {
             font-size: 18px;
             margin-bottom: 10px;
         }
         .additional-content {
-            margin-top: 20px; /* Adjust the margin as needed */
-            text-align: center;
+            margin-top: 20px;
         }
         .additional-content img {
             max-width: 100%;
-            height: auto;
             border-radius: 10px;
         }
     </style>
-    <div th:replace="navbar.html"></div>
 </head>
 <body>
-<div class="container mt-5">
+<div th:replace="navbar.html"></div>
+
+<div class="container">
     <div class="zoo-header">
         <h1>Hello dear user! Welcome to the Zoo System website!</h1>
         <p>Explore the fascinating world of animals and discover the wonders of the zoo.</p>

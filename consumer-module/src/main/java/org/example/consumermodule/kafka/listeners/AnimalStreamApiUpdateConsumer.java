@@ -1,5 +1,7 @@
 package org.example.consumermodule.kafka.listeners;
 
+import com.example.zoo.entity.AnimalStream;
+import com.example.zoo.services.FailureStreamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.consumermodule.service.AnimalStreamService;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AnimalStreamApiUpdateConsumer {
     private final AnimalStreamService animalStreamService;
+    private final FailureStreamService failureStreamService;
 
     @Transactional
     @KafkaListener(topics = "${topics.dev-update}", groupId = "${spring.kafka.consumer.group-id}")
@@ -28,5 +31,13 @@ public class AnimalStreamApiUpdateConsumer {
     @DltHandler
     public void processUpdateError(AnimalUpdateDTO animalUpdateDTO) {
         log.info("Kafka got an ERROR object: {} during API update", animalUpdateDTO);
+        failureStreamService.saveUnprocessed(AnimalStream.builder()
+                .kindAnimal(animalUpdateDTO.getKindAnimal())
+                .age(animalUpdateDTO.getAge())
+                .name(animalUpdateDTO.getName())
+                .typePowerSupply(animalUpdateDTO.getTypePowerSupply())
+                .venomous(animalUpdateDTO.getVenomous())
+                .errorMessage("Save animal update id=" + animalUpdateDTO.getId())
+                .build());
     }
 }

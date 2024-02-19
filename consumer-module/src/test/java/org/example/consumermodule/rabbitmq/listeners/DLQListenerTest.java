@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+import com.example.zoo.services.FailureStreamService;
 import org.example.consumermodule.service.AnimalStreamService;
 import org.example.producermodule.dto.AnimalDTO;
 import org.example.producermodule.dto.AnimalDeleteDTO;
@@ -12,6 +13,7 @@ import org.example.producermodule.dto.AnimalStreamDTO;
 import org.example.producermodule.dto.AnimalUpdateDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,6 +27,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class DLQListenerTest {
     @MockBean
     private AnimalStreamService animalStreamService;
+
+    @MockBean
+    private FailureStreamService failureStreamService;
 
     @Autowired
     private DLQListener dLQListener;

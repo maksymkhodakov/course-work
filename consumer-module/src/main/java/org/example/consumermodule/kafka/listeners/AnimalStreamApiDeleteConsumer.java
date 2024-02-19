@@ -1,5 +1,7 @@
 package org.example.consumermodule.kafka.listeners;
 
+import com.example.zoo.entity.AnimalStream;
+import com.example.zoo.services.FailureStreamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.consumermodule.service.AnimalStreamService;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AnimalStreamApiDeleteConsumer {
     private final AnimalStreamService animalStreamService;
+    private final FailureStreamService failureStreamService;
 
     @Transactional
     @KafkaListener(topics = "${topics.dev-delete}", groupId = "${spring.kafka.consumer.group-id}")
@@ -28,5 +31,8 @@ public class AnimalStreamApiDeleteConsumer {
     @DltHandler
     public void processDeleteError(AnimalDeleteDTO animalDeleteDTO) {
         log.info("Kafka got an ERROR object: {} during API delete", animalDeleteDTO);
+        failureStreamService.saveUnprocessed(AnimalStream.builder()
+                .errorMessage("Delete animal with id=" + animalDeleteDTO.getId())
+                .build());
     }
 }

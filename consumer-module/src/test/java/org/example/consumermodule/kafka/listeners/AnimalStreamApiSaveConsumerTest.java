@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+import com.example.zoo.services.FailureStreamService;
 import org.example.consumermodule.service.AnimalStreamService;
 import org.example.producermodule.dto.AnimalDTO;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,9 @@ class AnimalStreamApiSaveConsumerTest {
 
     @MockBean
     private AnimalStreamService animalStreamService;
+
+    @MockBean
+    private FailureStreamService failureStreamService;
 
     /**
      * Method under test: {@link AnimalStreamApiSaveConsumer#save(AnimalDTO)}

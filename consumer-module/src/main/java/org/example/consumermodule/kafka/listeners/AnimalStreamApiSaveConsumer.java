@@ -1,5 +1,7 @@
 package org.example.consumermodule.kafka.listeners;
 
+import com.example.zoo.entity.AnimalStream;
+import com.example.zoo.services.FailureStreamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.consumermodule.service.AnimalStreamService;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AnimalStreamApiSaveConsumer {
     private final AnimalStreamService animalStreamService;
+    private final FailureStreamService failureStreamService;
 
     @Transactional
     @KafkaListener(topics = "${topics.dev-save}", groupId = "${spring.kafka.consumer.group-id}")
@@ -28,5 +31,13 @@ public class AnimalStreamApiSaveConsumer {
     @DltHandler
     public void processSaveError(AnimalDTO animalDTO) {
         log.info("Kafka got an ERROR object: {} during API save", animalDTO);
+        failureStreamService.saveUnprocessed(AnimalStream.builder()
+                .kindAnimal(animalDTO.getKindAnimal())
+                .age(animalDTO.getAge())
+                .name(animalDTO.getName())
+                .typePowerSupply(animalDTO.getTypePowerSupply())
+                .venomous(animalDTO.getVenomous())
+                .errorMessage("Save animal error")
+                .build());
     }
 }

@@ -26,7 +26,7 @@ class AnimalStreamLoadListenerTest {
 
     /**
      * Method under test:
-     * {@link AnimalStreamLoadListener#handleAnimalStreamDlt(AnimalStreamDTO)}
+     * {@link AnimalStreamLoadListener#handleAnimalStreamLoad(AnimalStreamDTO)}
      */
     @Test
     void testHandleAnimalStreamDlt() {
@@ -34,7 +34,7 @@ class AnimalStreamLoadListenerTest {
         doNothing().when(animalStreamService).saveLoad(any());
 
         // Act
-        animalStreamLoadListener.handleAnimalStreamDlt(new AnimalStreamDTO());
+        animalStreamLoadListener.handleAnimalStreamLoad(new AnimalStreamDTO());
 
         // Assert that nothing has changed
         verify(animalStreamService, times(1)).saveLoad(any());

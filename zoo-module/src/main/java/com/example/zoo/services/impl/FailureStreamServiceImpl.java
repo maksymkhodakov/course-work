@@ -19,6 +19,14 @@ import java.util.Objects;
 public class FailureStreamServiceImpl implements FailureStreamService {
     private final AnimalStreamRepository animalStreamRepository;
 
+
+    @Override
+    @Transactional
+    public void saveUnprocessed(AnimalStream animalStream) {
+        animalStream.setProcessed(false);
+        animalStreamRepository.save(animalStream);
+    }
+
     @Override
     public List<AnimalStreamResultDTO> getUnprocessed() {
         return animalStreamRepository.findByProcessedIsFalse()
