@@ -1,6 +1,7 @@
 package org.example.consumermodule.kafka.listeners;
 
 import com.example.zoo.entity.AnimalStream;
+import com.example.zoo.enums.AnimalStreamProcessType;
 import com.example.zoo.services.FailureStreamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ public class AnimalStreamApiSaveConsumer {
     @DltHandler
     public void processSaveError(AnimalDTO animalDTO) {
         log.info("Kafka got an ERROR object: {} during API save", animalDTO);
-        failureStreamService.saveUnprocessed(AnimalStream.builder()
+        failureStreamService.saveUnprocessed(AnimalStreamProcessType.KAFKA, AnimalStream.builder()
                 .kindAnimal(animalDTO.getKindAnimal())
                 .age(animalDTO.getAge())
                 .name(animalDTO.getName())

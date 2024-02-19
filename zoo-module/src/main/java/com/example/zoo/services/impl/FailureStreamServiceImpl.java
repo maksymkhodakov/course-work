@@ -2,6 +2,7 @@ package com.example.zoo.services.impl;
 
 import com.example.zoo.dto.AnimalStreamResultDTO;
 import com.example.zoo.entity.AnimalStream;
+import com.example.zoo.enums.AnimalStreamProcessType;
 import com.example.zoo.exceptions.ApiErrors;
 import com.example.zoo.exceptions.OperationException;
 import com.example.zoo.repository.AnimalStreamRepository;
@@ -22,8 +23,9 @@ public class FailureStreamServiceImpl implements FailureStreamService {
 
     @Override
     @Transactional
-    public void saveUnprocessed(AnimalStream animalStream) {
+    public void saveUnprocessed(AnimalStreamProcessType processType, AnimalStream animalStream) {
         animalStream.setProcessed(false);
+        animalStream.setProcessType(processType);
         animalStreamRepository.save(animalStream);
     }
 
@@ -55,6 +57,7 @@ public class FailureStreamServiceImpl implements FailureStreamService {
                 .uploadedDate(animalStream.getCreateDate())
                 .errorMessage(animalStream.getErrorMessage())
                 .filename(Objects.isNull(animalStream.getLoadResult()) ? null : animalStream.getLoadResult().getFilename())
+                .processType(Objects.nonNull(animalStream.getLoadResult()) ? animalStream.getLoadResult().getProcessType() : animalStream.getProcessType())
                 .build();
     }
 }

@@ -1,6 +1,8 @@
 package com.example.zoo.dto;
 
 import java.sql.Timestamp;
+
+import com.example.zoo.enums.AnimalStreamProcessType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,4 +22,5 @@ public class AnimalStreamResultDTO {
     private Timestamp uploadedDate;
     private String filename;
     private String errorMessage;
+    private AnimalStreamProcessType processType;
 }

@@ -1,6 +1,7 @@
 package org.example.consumermodule.rabbitmq.listeners;
 
 import com.example.zoo.entity.AnimalStream;
+import com.example.zoo.enums.AnimalStreamProcessType;
 import com.example.zoo.services.FailureStreamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ public class DLQListener {
     @RabbitHandler
     public void handleAnimalSaveError(@Payload AnimalDTO animalDTO) {
         log.info("Rabbit mq got an ERROR object: {}, during save", animalDTO);
-        failureStreamService.saveUnprocessed(AnimalStream.builder()
+        failureStreamService.saveUnprocessed(AnimalStreamProcessType.RABBIT_MQ, AnimalStream.builder()
                 .kindAnimal(animalDTO.getKindAnimal())
                 .age(animalDTO.getAge())
                 .name(animalDTO.getName())
@@ -45,7 +46,7 @@ public class DLQListener {
     @RabbitHandler
     public void handleAnimalUpdateError(@Payload AnimalUpdateDTO animalUpdateDTO) {
         log.info("Rabbit mq got an ERROR object: {}, during update", animalUpdateDTO);
-        failureStreamService.saveUnprocessed(AnimalStream.builder()
+        failureStreamService.saveUnprocessed(AnimalStreamProcessType.RABBIT_MQ, AnimalStream.builder()
                 .kindAnimal(animalUpdateDTO.getKindAnimal())
                 .age(animalUpdateDTO.getAge())
                 .name(animalUpdateDTO.getName())
@@ -58,7 +59,7 @@ public class DLQListener {
     @RabbitHandler
     public void handleAnimalDeleteError(@Payload AnimalDeleteDTO animalDeleteDTO) {
         log.info("Rabbit mq got an ERROR object: {}, during delete", animalDeleteDTO);
-        failureStreamService.saveUnprocessed(AnimalStream.builder()
+        failureStreamService.saveUnprocessed(AnimalStreamProcessType.RABBIT_MQ, AnimalStream.builder()
                 .errorMessage("Delete animal with id=" + animalDeleteDTO.getId())
                 .build());
     }

@@ -1,6 +1,7 @@
 package org.example.consumermodule.kafka.listeners;
 
 import com.example.zoo.entity.AnimalStream;
+import com.example.zoo.enums.AnimalStreamProcessType;
 import com.example.zoo.services.FailureStreamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ public class AnimalStreamApiDeleteConsumer {
     @DltHandler
     public void processDeleteError(AnimalDeleteDTO animalDeleteDTO) {
         log.info("Kafka got an ERROR object: {} during API delete", animalDeleteDTO);
-        failureStreamService.saveUnprocessed(AnimalStream.builder()
+        failureStreamService.saveUnprocessed(AnimalStreamProcessType.KAFKA, AnimalStream.builder()
                 .errorMessage("Delete animal with id=" + animalDeleteDTO.getId())
                 .build());
     }

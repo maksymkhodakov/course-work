@@ -1,5 +1,6 @@
 package com.example.zoo.entity;
 
+import com.example.zoo.enums.AnimalStreamProcessType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,4 +36,8 @@ public class AnimalStream extends TimestampEntity {
 
     @Column(name = "error_msg")
     private String errorMessage;
+
+    @Column(name = "process_type")
+    @Enumerated(EnumType.STRING)
+    private AnimalStreamProcessType processType;
 }

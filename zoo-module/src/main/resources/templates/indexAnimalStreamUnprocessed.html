@@ -46,6 +46,7 @@
             <th scope="col">Age</th>
             <th scope="col">Uploaded Date</th>
             <th scope="col">Filename</th>
+            <th scope="col">Process Type</th>
             <th scope="col">ErrorMessage</th>
             <th scope="col">Actions</th>
         </tr>
@@ -59,6 +60,7 @@
             <td th:text="${stream.age}"></td>
             <td th:text="${stream.uploadedDate}"></td>
             <td th:text="${stream.filename}"></td>
+            <td th:text="${stream.processType}"></td>
             <td th:text="${stream.errorMessage}"></td>
             <td>
                 <form th:action="@{/animal-stream/delete}" method="post">
