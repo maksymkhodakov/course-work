@@ -24,8 +24,8 @@
             <label for="dataFile">Data file for processing:</label>
             <div class="input-group">
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="dataFile" name="dataFile" required="true">
-                    <label class="custom-file-label" for="dataFile">Choose file</label>
+                    <input type="file" class="custom-file-input" id="dataFile" name="dataFile" required="true" onchange="updateFileName()">
+                    <label class="custom-file-label" for="dataFile" id="fileLabel">Choose file</label>
                 </div>
             </div>
         </div>
@@ -35,5 +35,13 @@
         <a href="/animal-stream-loader/getAll" class="btn btn-secondary">Cancel</a>
     </div>
 </div>
+
+<script>
+    function updateFileName() {
+        const input = document.getElementById('dataFile');
+        const label = document.getElementById('fileLabel');
+        label.textContent = input.files[0].name;
+    }
+</script>
 </body>
 </html>

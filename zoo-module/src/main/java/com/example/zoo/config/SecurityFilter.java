@@ -41,6 +41,7 @@ public class SecurityFilter {
                 .authorizeHttpRequests(e ->
                         e.requestMatchers(
                                 "/secure/**",
+                                "/actuator/**",
                                         "/oauth2/**",
                                 "/animal/**",
                                 "/country/**",
