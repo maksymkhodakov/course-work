@@ -7,6 +7,7 @@ import com.example.zoo.dto.SearchDTO;
 import com.example.zoo.dto.ZooDTO;
 import com.example.zoo.exceptions.OperationException;
 import com.example.zoo.services.ZooService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -47,7 +48,7 @@ public class ZooRestController {
 
     @PostMapping("/create")
     @PreAuthorize("hasPermission(null, T(com.example.zoo.enums.Privilege).ROLE_BASIC_USER)")
-    public ResponseDTO<Void> create(@RequestPart("data") ZooData zooData) {
+    public ResponseDTO<Void> create(@RequestPart("data") @Valid ZooData zooData) {
         try {
             zooService.save(zooData);
         } catch (OperationException e) {
@@ -59,7 +60,7 @@ public class ZooRestController {
     @PutMapping("/update")
     @PreAuthorize("hasPermission(null, T(com.example.zoo.enums.Privilege).ROLE_BASIC_USER)")
     public ResponseDTO<Void> update(@RequestPart("id") Long id,
-                                    @RequestPart("data") ZooData zooData) {
+                                    @RequestPart("data") @Valid ZooData zooData) {
         try {
             zooService.update(id, zooData);
         } catch (OperationException e) {

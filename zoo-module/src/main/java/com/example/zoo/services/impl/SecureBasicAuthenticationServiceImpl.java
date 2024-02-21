@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -34,6 +35,10 @@ public class SecureBasicAuthenticationServiceImpl implements SecureBasicAuthenti
 
     @Override
     public boolean register(RegisterData data) {
+        final Optional<User> userInDb = userRepository.loadByUsername(data.getEmail());
+        if (userInDb.isPresent())  {
+            throw new OperationException(ApiErrors.USER_EXISTS);
+        }
         try {
             var user = User
                     .builder()

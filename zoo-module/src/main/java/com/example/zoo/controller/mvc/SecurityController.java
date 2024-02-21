@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class SecurityController {
     private static final String LOGIN = "login";
+    private static final String REGISTER = "register";
     private static final String ERROR = "error";
     private final SecureBasicAuthenticationService secureBasicAuthenticationService;
 
@@ -51,7 +52,7 @@ public class SecurityController {
         // create model object to store form data
         final RegisterData user = new RegisterData();
         model.addAttribute("user", user);
-        return "register";
+        return REGISTER;
     }
 
     @PostMapping("/register/save")
@@ -60,9 +61,16 @@ public class SecurityController {
                                Model model) {
         if (result.hasErrors()) {
             model.addAttribute("user", user);
-            return "register";
+            model.addAttribute(ERROR, null);
+            return REGISTER;
         }
-        secureBasicAuthenticationService.register(user);
+        try {
+            secureBasicAuthenticationService.register(user);
+        } catch (Exception e) {
+            model.addAttribute("user", user);
+            model.addAttribute(ERROR, e.getMessage());
+            return REGISTER;
+        }
         return "redirect:/?success";
     }
 }

@@ -6,6 +6,7 @@ import com.example.zoo.dto.ResponseDTO;
 import com.example.zoo.dto.SearchDTO;
 import com.example.zoo.exceptions.OperationException;
 import com.example.zoo.services.CountryService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -43,7 +44,7 @@ public class CountryRestController {
     }
 
     @PostMapping("/create")
-    public ResponseDTO<Void> create(@RequestPart("data") CountryData countryData,
+    public ResponseDTO<Void> create(@RequestPart("data") @Valid CountryData countryData,
                                     @RequestPart("file") MultipartFile multipartFile) {
         try {
             countryService.save(countryData, multipartFile);
@@ -55,7 +56,7 @@ public class CountryRestController {
 
     @PutMapping("/update")
     public ResponseDTO<Void> update(@RequestPart("id") Long id,
-                                    @RequestPart("data") CountryData countryData,
+                                    @RequestPart("data") @Valid CountryData countryData,
                                     @RequestPart("file") MultipartFile multipartFile) {
         try {
             countryService.update(id, countryData, multipartFile);

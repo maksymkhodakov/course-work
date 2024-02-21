@@ -3,6 +3,7 @@ package com.example.zoo.controller.rest;
 import com.example.zoo.data.LoginData;
 import com.example.zoo.data.RegisterData;
 import com.example.zoo.services.SecureBasicAuthenticationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,11 +18,11 @@ public class SecureController {
     private final SecureBasicAuthenticationService secureBasicAuthenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<Boolean> registration(@RequestBody RegisterData data){
+    public ResponseEntity<Boolean> registration(@RequestBody @Valid RegisterData data){
         return ResponseEntity.ok(secureBasicAuthenticationService.register(data));
     }
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginData data){
+    public ResponseEntity<String> login(@RequestBody @Valid LoginData data){
         return ResponseEntity.ok(secureBasicAuthenticationService.login(data));
     }
 }

@@ -2675,8 +2675,6 @@ mconsumer-module/src/test/java/org/example/consumermodule/rabbitmq/listeners/Ani
 ^consumer-module/src/test/java/org/example/consumermodule/scheduler/DeadLoadsSchedulerTest.java,b/b/bb27fe6de41041b37af2fda4e762f4523c1e4312
 –
 fconsumer-module/src/test/java/org/example/consumermodule/service/impl/AnimalStreamServiceImplTest.java,5/7/57b52dbce5447d2d0e4a85b75e5c305b28b96816
-<
-docs/tech.md,8/9/89cdbedfaeda5c5da79939ce86bbd8add4a3a04d
 ‘
 azoo-module/src/test/java/com/example/zoo/services/impl/AnimalStreamLoadResultServiceImplTest.java,9/1/91d77756342e088523d880e423692d38746d12d3
 
@@ -2687,9 +2685,7 @@ Rzoo-module/src/test/java/com/example/zoo/services/impl/CountryServiceImplTest.j
 Nzoo-module/src/test/java/com/example/zoo/services/impl/ZooServiceImplTest.java,6/4/6459b210bd4b157d7e21181441be00e443c06196
 „
 Tzoo-module/src/test/java/com/example/zoo/storage/service/impl/S3ServiceImplTest.java,2/0/20afcf1be83db47208b20e6394080791613ea32f
-š
-jrabbitmq/mnesia/rabbit@rabbitmq/msg_stores/vhosts/628WB79CIFDYO9LJI6DKMI09L/msg_store_persistent/clean.dot,f/3/f369598fb9128d0be33e9805f2ed9a217524f659
-™
-irabbitmq/mnesia/rabbit@rabbitmq/msg_stores/vhosts/628WB79CIFDYO9LJI6DKMI09L/msg_store_transient/clean.dot,b/0/b0af8cc4aec4f43a6f750b258a167cc4276925a9
 S
 #rabbitmq/mnesia/rabbit@rabbitmq.pid,4/d/4d2abbc0cf6914c061c5647f3ce8c9c99c478796
+B
+docs/tech-notes.md,f/4/f4b28b42ee8985bafa2342131aa770afdbc05756

@@ -25,6 +25,7 @@ import java.util.Objects;
 @RequestMapping("/country")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CountryController {
+    private static final String REDIRECT_COUNTRY_GET_ALL = "redirect:/country/getAll";
     CountryRepository countryRepository;
     @GetMapping(value = "/getAll")
     public String findAll(Model map) {
@@ -54,7 +55,7 @@ public class CountryController {
                     .build();
             countryRepository.saveAndFlush(country);
         }
-        return "redirect:/country/getAll";
+        return REDIRECT_COUNTRY_GET_ALL;
     }
 
     @PostMapping("/delete")
@@ -62,7 +63,7 @@ public class CountryController {
         var country = countryRepository.findById(id)
                 .orElseThrow(() -> new OperationException(ApiErrors.COUNTRY_NOT_FOUND));
         countryRepository.delete(country);
-        return "redirect:/country/getAll";
+        return REDIRECT_COUNTRY_GET_ALL;
     }
 
     @GetMapping("/update/{id}")
@@ -88,6 +89,6 @@ public class CountryController {
         if (flag.getBytes().length != 0) {
             country.setFlag(flag.getBytes());
         }
-        return "redirect:/country/getAll";
+        return REDIRECT_COUNTRY_GET_ALL;
     }
 }
