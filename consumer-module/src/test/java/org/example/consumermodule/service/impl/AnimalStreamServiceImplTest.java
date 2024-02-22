@@ -14,9 +14,7 @@ import com.example.zoo.repository.AnimalStreamLoadResultRepository;
 import com.example.zoo.repository.AnimalStreamRepository;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import org.example.producermodule.dto.AnimalDTO;
 import org.example.producermodule.dto.AnimalDeleteDTO;
@@ -1354,7 +1352,7 @@ class AnimalStreamServiceImplTest {
         when(animalStreamLoadResultRepository.findById(Mockito.<Long>any())).thenReturn(ofResult);
 
         AnimalStreamDTO animalStreamDTO = new AnimalStreamDTO();
-        animalStreamDTO.setAnimalStream(new ArrayList<>());
+        animalStreamDTO.setAnimalStream(new HashSet<>());
 
         // Act
         animalStreamServiceImpl.saveLoad(animalStreamDTO);
@@ -1396,7 +1394,7 @@ class AnimalStreamServiceImplTest {
                 .thenReturn(animalStreamLoadResult2);
         when(animalStreamLoadResultRepository.findById(Mockito.<Long>any())).thenReturn(ofResult);
 
-        ArrayList<AnimalStreamFileDTO> animalStream = new ArrayList<>();
+        Set<AnimalStreamFileDTO> animalStream = new HashSet<>();
         animalStream.add(new AnimalStreamFileDTO(1, "Name", "Kind Animal", "Venomous", "Type Power Supply", "Age"));
 
         AnimalStreamDTO animalStreamDTO = new AnimalStreamDTO();
@@ -1442,7 +1440,7 @@ class AnimalStreamServiceImplTest {
                 .thenReturn(animalStreamLoadResult2);
         when(animalStreamLoadResultRepository.findById(Mockito.<Long>any())).thenReturn(ofResult);
 
-        ArrayList<AnimalStreamFileDTO> animalStream = new ArrayList<>();
+        Set<AnimalStreamFileDTO> animalStream = new HashSet<>();
         animalStream.add(new AnimalStreamFileDTO(1, "Name", "Kind Animal", "Venomous", "Type Power Supply", "Age"));
         animalStream.add(new AnimalStreamFileDTO(1, "Name", "Kind Animal", "Venomous", "Type Power Supply", "Age"));
 
@@ -1479,7 +1477,7 @@ class AnimalStreamServiceImplTest {
         when(animalStreamLoadResultRepository.findById(Mockito.<Long>any())).thenReturn(ofResult);
 
         AnimalStreamDTO animalStreamDTO = new AnimalStreamDTO();
-        animalStreamDTO.setAnimalStream(new ArrayList<>());
+        animalStreamDTO.setAnimalStream(new HashSet<>());
 
         // Act and Assert
         assertThrows(RuntimeException.class, () -> animalStreamServiceImpl.saveLoad(animalStreamDTO));

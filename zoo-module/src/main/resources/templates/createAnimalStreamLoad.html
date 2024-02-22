@@ -2,17 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create New Animal</title>
+    <title>Create New Load</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <div th:replace="navbar.html"></div>
 </head>
 <body>
 <div class="container mt-5">
     <h1>Create New Animal Load</h1>
-    <form th:action="@{/animal-stream-loader/download-template}" method="post">
-        <button type="submit" class="btn-info">Download Excel Template</button>
+    <form action="/animal-stream-loader/download-template" method="post" class="d-inline">
+        <input type="hidden" name="fileType" value="EXCEL">
+        <button type="submit" class="btn btn-info">Download Excel Template</button>
     </form>
-    <br>
+    <form action="/animal-stream-loader/download-template" method="post" class="d-inline">
+        <input type="hidden" name="fileType" value="CSV">
+        <button type="submit" class="btn btn-info">Download CSV Template</button>
+    </form>
+    <br><br>
     <form action="/animal-stream-loader/create" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="processTypeSelect">Select Animal Stream Process Type:</label>

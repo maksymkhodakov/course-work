@@ -13,10 +13,10 @@ import org.example.producermodule.kafka.service.KafkaSenderService;
 import org.example.producermodule.rabbitmq.service.MessageProducerWrapper;
 import org.example.producermodule.service.AnimalLoadProcessor;
 import org.example.producermodule.service.FileReader;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -35,12 +35,13 @@ public class AnimalLoadProcessorImpl implements AnimalLoadProcessor {
         final String s3Link = load.getS3Link();
         final AnimalStreamProcessType type = load.getProcessType();
         final byte[] fileBytes = s3Service.downloadFile(awsProperties.getZooServiceAnimalStreamLoadBucketName(), s3Link);
-        final List<AnimalStreamFileDTO> animalStream = fileReader.parseData(fileBytes, filename, AnimalStreamFileDTO.class);
+        // work with unique data
+        final Set<AnimalStreamFileDTO> animalStream = new LinkedHashSet<>(fileReader.parseData(fileBytes, filename, AnimalStreamFileDTO.class));
         final AnimalStreamDTO animalStreamDTO = buildAnimalStreamDTO(load, animalStream);
         sendToBroker(type, animalStreamDTO);
     }
 
-    private AnimalStreamDTO buildAnimalStreamDTO(AnimalStreamLoadResult load, List<AnimalStreamFileDTO> animalStream) {
+    private AnimalStreamDTO buildAnimalStreamDTO(AnimalStreamLoadResult load, Set<AnimalStreamFileDTO> animalStream) {
         return AnimalStreamDTO.builder()
                 .loadId(load.getId())
                 .animalStream(animalStream)

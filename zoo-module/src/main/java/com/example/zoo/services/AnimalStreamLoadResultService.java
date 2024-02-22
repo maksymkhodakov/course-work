@@ -2,6 +2,7 @@ package com.example.zoo.services;
 
 import com.example.zoo.dto.AnimalStreamLoadResultDTO;
 import com.example.zoo.enums.AnimalStreamProcessType;
+import com.example.zoo.enums.FileType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,5 +17,5 @@ public interface AnimalStreamLoadResultService {
 
     ResponseEntity<byte[]> getResource(Long id);
 
-    ResponseEntity<byte[]> getTemplate();
+    ResponseEntity<byte[]> getTemplate(FileType fileType);
 }

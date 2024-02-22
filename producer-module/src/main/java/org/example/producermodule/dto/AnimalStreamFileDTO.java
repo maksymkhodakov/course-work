@@ -3,15 +3,15 @@ package org.example.producermodule.dto;
 import com.opencsv.bean.CsvBindByPosition;
 import com.poiji.annotation.ExcelCell;
 import com.poiji.annotation.ExcelRow;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = "rowIndex")
+@ToString
 public class AnimalStreamFileDTO implements Serializable {
     @ExcelRow
     private int rowIndex;

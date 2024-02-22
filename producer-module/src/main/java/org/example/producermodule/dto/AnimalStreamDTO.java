@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -14,5 +14,5 @@ import java.util.List;
 @NoArgsConstructor
 public class AnimalStreamDTO implements Serializable {
     private Long loadId;
-    private List<AnimalStreamFileDTO> animalStream;
+    private Set<AnimalStreamFileDTO> animalStream;
 }

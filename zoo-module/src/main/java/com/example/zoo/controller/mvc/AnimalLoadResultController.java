@@ -1,6 +1,7 @@
 package com.example.zoo.controller.mvc;
 
 import com.example.zoo.enums.AnimalStreamProcessType;
+import com.example.zoo.enums.FileType;
 import com.example.zoo.services.AnimalStreamLoadResultService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +36,8 @@ public class AnimalLoadResultController {
     }
 
     @PostMapping("/download-template")
-    public ResponseEntity<byte[]> downloadTemplate() {
-        return animalStreamLoadResultService.getTemplate();
+    public ResponseEntity<byte[]> downloadTemplate(@RequestParam("fileType") FileType fileType) {
+        return animalStreamLoadResultService.getTemplate(fileType);
     }
 
     @PostMapping("/delete")

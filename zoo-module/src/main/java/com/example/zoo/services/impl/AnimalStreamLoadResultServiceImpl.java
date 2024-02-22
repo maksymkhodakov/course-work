@@ -3,6 +3,7 @@ package com.example.zoo.services.impl;
 import com.example.zoo.dto.AnimalStreamLoadResultDTO;
 import com.example.zoo.entity.AnimalStreamLoadResult;
 import com.example.zoo.enums.AnimalStreamProcessType;
+import com.example.zoo.enums.FileType;
 import com.example.zoo.exceptions.ApiErrors;
 import com.example.zoo.exceptions.OperationException;
 import com.example.zoo.repository.AnimalStreamLoadResultRepository;
@@ -97,8 +98,13 @@ public class AnimalStreamLoadResultServiceImpl implements AnimalStreamLoadResult
 
     @SneakyThrows
     @Override
-    public ResponseEntity<byte[]> getTemplate() {
-        final Resource resource = new ClassPathResource("templates/template.xlsx");
+    public ResponseEntity<byte[]> getTemplate(FileType fileType) {
+        final Resource resource;
+        if (fileType == FileType.EXCEL) {
+            resource = new ClassPathResource("templates/template.xlsx");
+        } else {
+            resource = new ClassPathResource("templates/template.csv");
+        }
         return ResponseEntity.ok()
                 .header("content-disposition", "attachment; filename=" + resource.getFilename())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
