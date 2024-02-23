@@ -2691,3 +2691,10 @@ B
 docs/tech-notes.md,f/4/f4b28b42ee8985bafa2342131aa770afdbc05756
 l
 <zoo-module/src/main/java/com/example/zoo/enums/FileType.java,f/b/fbbbe63b0e470bade9daa4e54a5ac2501d1daef1
+:
+
+Dockerfile,6/6/6651ddff6eb82c840ced7c1dddee15c6e1913dd4
+E
+zoo-module/Dockerfile,1/3/13982a3a3e4be5dd357e17829410d4f8e120bfd8
+J
+producer-module/Dockerfile,c/2/c2048c0a3bc417999d02291dd56127cf0fa5c735

@@ -45,3 +45,20 @@ services:
       MARIADB_DATABASE: main
     ports:
       - '3306:3306'
+
+  zoo-module:
+    build:
+      context: ./zoo-module/
+      dockerfile: Dockerfile
+    container_name: zoo-module
+    ports:
+      - '8080:8080'
+    depends_on:
+      - rabbitmq
+      - zookeeper
+      - kafka
+      - main_db
+    environment:
+      DB_HOST: host.docker.internal
+      SPRING_PROFILES_ACTIVE: dev
+
