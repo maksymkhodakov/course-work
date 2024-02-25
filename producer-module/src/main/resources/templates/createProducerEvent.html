@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<div th:replace="navbar.html"></div>
+<body>
+<div class="container mt-5">
+  <h1>Create Producer Event</h1>
+  <form action="/producer/create-event" method="POST">
+    <div class="form-group">
+      <label for="brokerSelect">Select Broker:</label>
+      <select class="form-control" id="brokerSelect" name="brokerInput">
+        <option th:each="broker : ${broker}" th:value="${broker}" th:text="${broker}" required="true"></option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="typeSelect">Select Event Type:</label>
+      <select class="form-control" id="typeSelect" name="typeInput">
+        <option th:each="type : ${type}" th:value="${type}" th:text="${type}" required="true"></option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="idInput">Id of stream</label>
+      <input type="number" class="form-control" id="idInput" name="idInput" placeholder="Enter the text" required="true" min="0">
+    </div>
+    <div class="form-group">
+      <label for="nameInput">Name of Animal:</label>
+      <input type="text" class="form-control" id="nameInput" name="nameInput" placeholder="Enter the name">
+    </div>
+    <div class="form-group">
+      <label for="ageInput">Age</label>
+      <input type="number" class="form-control" id="ageInput" name="ageInput" placeholder="Enter the text" required="true" min="0">
+    </div>
+    <div class="form-group">
+      <label for="kindSelect">Select Kind of Animal:</label>
+      <select class="form-control" id="kindSelect" name="kindAnimal">
+        <option th:each="kind : ${kind}" th:value="${kind}" th:text="${kind}"></option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="venomousCheckbox">Venomous:</label>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="venomousCheckbox" name="venomous" >
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="supplySelect">Select Type of Power Supply:</label>
+      <select class="form-control" id="supplySelect" name="typePowerSupply">
+        <option th:each="supply : ${supply}" th:value="${supply}" th:text="${supply}"></option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <div class="form-group">
+    <a href="/kafka/getAll" class="btn btn-secondary">Cancel</a>
+  </div>
+</div>
+</body>
+</html>

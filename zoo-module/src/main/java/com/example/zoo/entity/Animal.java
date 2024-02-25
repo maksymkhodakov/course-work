@@ -21,6 +21,8 @@ public class Animal extends TimestampEntity {
 
     private String name;
 
+    private Integer age;
+
     @Enumerated(value = EnumType.STRING)
     private KindAnimal kindAnimal;
 

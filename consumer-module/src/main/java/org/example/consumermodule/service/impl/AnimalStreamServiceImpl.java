@@ -116,6 +116,7 @@ public class AnimalStreamServiceImpl implements AnimalStreamService {
                 .kindAnimal(KindAnimal.valueOf(animalStream.getKindAnimal()))
                 .venomous(Boolean.parseBoolean(animalStream.getVenomous()))
                 .typePowerSupply(TypePowerSupply.valueOf(animalStream.getTypePowerSupply()))
+                .age(Integer.valueOf(animalStream.getAge()))
                 .countries(new ArrayList<>())
                 .build();
     }

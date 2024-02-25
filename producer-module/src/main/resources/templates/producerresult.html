@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Kafka Streams</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+        padding: 20px;
+        background-image: url('https://source.unsplash.com/1920x1080/?zoo,animals');
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .table tbody tr:nth-child(odd) {
+        background-color: #f2f2f2;
+    }
+    .btn {
+        margin-right: 5px;
+    }
+    .form-group {
+        margin-top: 10px;
+    }
+    .container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+</style>
+<body>
+<div th:replace="navbar.html"></div>
+<div class="container">
+    <h1>List of Animal Streams</h1>
+    <div>
+        <a class="btn btn-dark" th:href="@{/producer/create-event}">Create event</a>
+    </div>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Kind animal</th>
+            <th scope="col">Venomous</th>
+            <th scope="col">Power Supply</th>
+            <th scope="col">Age</th>
+            <th scope="col">Is Processed</th>
+            <th scope="col">Error Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="stream : ${streams}">
+            <td th:text="${stream.id}"></td>
+            <td th:text="${stream.name}"></td>
+            <td th:text="${stream.kindAnimal}"></td>
+            <td th:text="${stream.venomous}"></td>
+            <td th:text="${stream.typePowerSupply}"></td>
+            <td th:text="${stream.age}"></td>
+            <td th:text="${stream.processed ? 'Yes' : 'No'}"></td>
+            <td th:text="${stream.errorMessage}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

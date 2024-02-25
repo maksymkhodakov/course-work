@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Producer Explorer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://source.unsplash.com/1920x1080/?zoo,animals');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+        .zoo-header {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: center;
+            color: #333;
+        }
+        .zoo-header h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .zoo-header p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .additional-content {
+            margin-top: 20px;
+        }
+        .additional-content img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="navbar.html"></div>
+
+<div class="container">
+    <div class="zoo-header">
+        <h1>Welcome to the Producer service website!</h1>
+        <p>Please feel free to manipulate message brokers.</p>
+        <div class="additional-content">
+            <p>Stay tuned!</p>
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaXc5ejF5NzJiNnRybHA0dTdnbW94dTl2ZWExNmI4bW82aTk5eDRjeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vgMmIZoHbR7bi/giphy.gif" alt="Dancing Animals GIF">
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
