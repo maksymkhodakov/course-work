@@ -26,7 +26,7 @@ public class AnimalStreamApiSaveConsumer {
     @KafkaListener(topics = "${topics.dev-save}", groupId = "${spring.kafka.consumer.group-id}")
     @RetryableTopic(attempts = "4", backoff = @Backoff(delay = 1000, multiplier = 2.0))
     public void save(@Payload AnimalDTO animalDTO) {
-        animalStreamService.save(animalDTO);
+        animalStreamService.save(AnimalStreamProcessType.KAFKA, animalDTO);
     }
 
     @DltHandler

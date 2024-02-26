@@ -3,6 +3,7 @@ package org.example.consumermodule.service.impl;
 import com.example.zoo.entity.Animal;
 import com.example.zoo.entity.AnimalStream;
 import com.example.zoo.entity.AnimalStreamLoadResult;
+import com.example.zoo.enums.AnimalStreamProcessType;
 import com.example.zoo.enums.KindAnimal;
 import com.example.zoo.enums.TypePowerSupply;
 import com.example.zoo.exceptions.ApiErrors;
@@ -143,7 +144,7 @@ public class AnimalStreamServiceImpl implements AnimalStreamService {
 
         final List<AnimalStream> animalStreams = animalStreamDTO.getAnimalStream()
                 .stream()
-                .map(this::buildAnimalStream)
+                .map(animalStream -> buildAnimalStream(animalStreamLoadResult.getProcessType(), animalStream))
                 .toList();
 
         animalStreams.forEach(animalStreamLoadResult::addAnimalStream);
@@ -154,14 +155,14 @@ public class AnimalStreamServiceImpl implements AnimalStreamService {
 
     @Override
     @Transactional
-    public void save(AnimalDTO animalDTO) {
+    public void save(AnimalStreamProcessType processType, AnimalDTO animalDTO) {
         log.info("Consumer received message value: {}", animalDTO);
-        final AnimalStream animalStream = buildAnimalStream(animalDTO);
+        final AnimalStream animalStream = buildAnimalStream(processType, animalDTO);
         final AnimalStream savedAnimal = animalStreamRepository.save(animalStream);
         log.info("Animal with id={} was saved to DB",savedAnimal.getId());
     }
 
-    private AnimalStream buildAnimalStream(AnimalDTO animalDTO) {
+    private AnimalStream buildAnimalStream(AnimalStreamProcessType processType, AnimalDTO animalDTO) {
         return AnimalStream.builder()
                 .name(animalDTO.getName())
                 .age(animalDTO.getAge())
@@ -169,10 +170,11 @@ public class AnimalStreamServiceImpl implements AnimalStreamService {
                 .typePowerSupply(animalDTO.getTypePowerSupply())
                 .kindAnimal(animalDTO.getKindAnimal())
                 .age(animalDTO.getAge())
+                .processType(processType)
                 .build();
     }
 
-    private AnimalStream buildAnimalStream(AnimalStreamFileDTO animalDTO) {
+    private AnimalStream buildAnimalStream(AnimalStreamProcessType processType, AnimalStreamFileDTO animalDTO) {
         return AnimalStream.builder()
                 .name(animalDTO.getName())
                 .age(animalDTO.getAge())
@@ -180,6 +182,7 @@ public class AnimalStreamServiceImpl implements AnimalStreamService {
                 .typePowerSupply(animalDTO.getTypePowerSupply())
                 .kindAnimal(animalDTO.getKindAnimal())
                 .age(animalDTO.getAge())
+                .processType(processType)
                 .build();
     }
 

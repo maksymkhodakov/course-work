@@ -1,5 +1,6 @@
 package org.example.consumermodule.rabbitmq.listeners;
 
+import com.example.zoo.enums.AnimalStreamProcessType;
 import org.example.consumermodule.service.AnimalStreamService;
 import org.example.producermodule.dto.AnimalDeleteDTO;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -23,7 +24,7 @@ public class AnimalStreamApiListener {
     @RabbitHandler
     @Transactional
     public void save(@Payload AnimalDTO animalDTO) {
-        animalStreamService.save(animalDTO);
+        animalStreamService.save(AnimalStreamProcessType.RABBIT_MQ, animalDTO);
     }
 
     @RabbitHandler

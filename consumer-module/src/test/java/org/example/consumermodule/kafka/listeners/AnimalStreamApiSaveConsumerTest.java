@@ -35,14 +35,14 @@ class AnimalStreamApiSaveConsumerTest {
     @Test
     void testSave() {
         // Arrange
-        doNothing().when(animalStreamService).save(any());
+        doNothing().when(animalStreamService).save(any(), any());
         AnimalDTO animalDTO = new AnimalDTO("Name", "Kind Animal", "Venomous", "Type Power Supply", "Age");
 
         // Act
         animalStreamApiSaveConsumer.save(animalDTO);
 
         // Assert that nothing has changed
-        verify(animalStreamService, times(1)).save(any());
+        verify(animalStreamService, times(1)).save(any(), any());
         assertEquals("Age", animalDTO.getAge());
         assertEquals("Kind Animal", animalDTO.getKindAnimal());
         assertEquals("Name", animalDTO.getName());

@@ -1517,14 +1517,14 @@ class AnimalStreamServiceImplTest {
         when(animalStreamRepository.save(Mockito.<AnimalStream>any())).thenReturn(animalStream);
 
         // Act
-        animalStreamServiceImpl.save(new AnimalDTO("Name", "Kind Animal", "Venomous", "Type Power Supply", "Age"));
+        animalStreamServiceImpl.save(AnimalStreamProcessType.RABBIT_MQ, new AnimalDTO("Name", "Kind Animal", "Venomous", "Type Power Supply", "Age"));
 
         // Assert
         verify(animalStreamRepository, times(1)).save(Mockito.<AnimalStream>any());
     }
 
     /**
-     * Method under test: {@link AnimalStreamServiceImpl#save(AnimalDTO)}
+     * Method under test: {@link AnimalStreamServiceImpl#(AnimalDTO)}
      */
     @Test
     void testSave2() {
@@ -1534,7 +1534,7 @@ class AnimalStreamServiceImplTest {
 
         // Act and Assert
         assertThrows(RuntimeException.class, () -> animalStreamServiceImpl
-                .save(new AnimalDTO("Name", "Kind Animal", "Venomous", "Type Power Supply", "Age")));
+                .save(AnimalStreamProcessType.KAFKA, new AnimalDTO("Name", "Kind Animal", "Venomous", "Type Power Supply", "Age")));
         verify(animalStreamRepository).save(Mockito.<AnimalStream>any());
     }
 
