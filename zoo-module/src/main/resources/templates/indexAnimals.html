@@ -51,6 +51,7 @@
     <thead class="thead-dark">
     <tr>
       <th scope="col">Name</th>
+      <th scope="col">Age</th>
       <th scope="col">Kind of Animal</th>
       <th scope="col">Venomous</th>
       <th scope="col">Type of Power Supply</th>
@@ -62,6 +63,7 @@
     <tbody>
     <tr th:each="animal : ${lostAnimals}">
       <td th:text="${animal.name}"></td>
+      <td th:text="${animal.age}"></td>
       <td th:text="${animal.kindAnimal}"></td>
       <td th:text="${animal.venomous ? 'Yes' : 'No'}"></td>
       <td th:text="${animal.typePowerSupply}"></td>

@@ -21,6 +21,7 @@ public class Animal extends TimestampEntity {
 
     private String name;
 
+    // field which can be populated only by a streams
     private Integer age;
 
     @Enumerated(value = EnumType.STRING)

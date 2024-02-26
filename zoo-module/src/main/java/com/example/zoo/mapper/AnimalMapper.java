@@ -7,6 +7,8 @@ import com.example.zoo.storage.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 
 @Component
 @RequiredArgsConstructor
@@ -18,6 +20,7 @@ public class AnimalMapper {
         return AnimalDTO.builder()
                 .id(animal.getId())
                 .name(animal.getName())
+                .age(Objects.isNull(animal.getAge()) ? "STREAMS ONLY FIELD" : String.valueOf(animal.getAge()))
                 .kindAnimal(animal.getKindAnimal())
                 .typePowerSupply(animal.getTypePowerSupply())
                 .venomous(animal.isVenomous())

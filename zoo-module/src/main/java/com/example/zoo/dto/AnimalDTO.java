@@ -18,6 +18,9 @@ public class AnimalDTO {
 
     private String name;
 
+    // only populated by streams
+    private String age;
+
     private KindAnimal kindAnimal;
 
     private boolean venomous;

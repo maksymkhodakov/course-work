@@ -49,6 +49,7 @@
             <th scope="col">Power Supply</th>
             <th scope="col">Age</th>
             <th scope="col">Is Processed</th>
+            <th scope="col">Process Type</th>
             <th scope="col">Error Message</th>
         </tr>
         </thead>
@@ -61,6 +62,7 @@
             <td th:text="${stream.typePowerSupply}"></td>
             <td th:text="${stream.age}"></td>
             <td th:text="${stream.processed ? 'Yes' : 'No'}"></td>
+            <td th:text="${stream.processType}"></td>
             <td th:text="${stream.errorMessage}"></td>
         </tr>
         </tbody>
