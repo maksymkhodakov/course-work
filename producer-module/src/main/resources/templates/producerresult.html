@@ -53,6 +53,7 @@
             <th scope="col">Error Message</th>
         </tr>
         </thead>
+        <canvas id="typeChart" width="400" height="100" class="mb-3"></canvas>
         <tbody>
         <tr th:each="stream : ${streams}">
             <td th:text="${stream.id}"></td>
@@ -68,5 +69,55 @@
         </tbody>
     </table>
 </div>
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const ctx = document.getElementById('typeChart').getContext('2d');
+        const streams = /*[[${streams}]]*/ [];
+        const typeCounts = {};
+
+        streams.forEach(function (loadFile) {
+            const type = loadFile.processType;
+            if (typeCounts[type]) {
+                typeCounts[type]++;
+            } else {
+                typeCounts[type] = 1;
+            }
+        });
+
+        const kinds = Object.keys(typeCounts);
+        const kindCount = Object.values(typeCounts);
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: kinds,
+                datasets: [{
+                    label: 'Animal stream count by process type',
+                    data: kindCount,
+                    backgroundColor: 'rgba(231,196,15,0.2)',
+                    borderColor: 'rgb(217,5,117)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of streams'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Process type'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>
