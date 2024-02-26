@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.producermodule.dto.AnimalDTO;
 import org.example.producermodule.dto.AnimalDeleteDTO;
 import org.example.producermodule.dto.AnimalUpdateDTO;
-import org.example.producermodule.enums.EventType;
 import org.example.producermodule.kafka.config.TopicNameConfig;
 import org.example.producermodule.kafka.service.KafkaSenderService;
 import org.example.producermodule.rabbitmq.service.MessageProducerWrapper;
@@ -27,7 +26,7 @@ public class ProducerServiceImpl implements ProducerService {
                 .id(Long.valueOf(id))
                 .build();
         if (processType == AnimalStreamProcessType.KAFKA) {
-            kafkaSenderService.produceMessages(topicNameConfig.getDevSave(), animalDeleteDTO);
+            kafkaSenderService.produceMessages(topicNameConfig.getDevDelete(), animalDeleteDTO);
         } else {
             messageProducerWrapper.produceDevMessages(animalDeleteDTO);
         }
@@ -44,7 +43,7 @@ public class ProducerServiceImpl implements ProducerService {
                 .typePowerSupply(String.valueOf(typePowerSupply))
                 .build();
         if (processType == AnimalStreamProcessType.KAFKA) {
-            kafkaSenderService.produceMessages(topicNameConfig.getDevSave(), animalUpdateDTO);
+            kafkaSenderService.produceMessages(topicNameConfig.getDevUpdate(), animalUpdateDTO);
         } else {
             messageProducerWrapper.produceDevMessages(animalUpdateDTO);
         }

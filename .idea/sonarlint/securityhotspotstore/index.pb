@@ -5729,17 +5729,11 @@ G.idea/sonarlint/issuestore/3/1/31d4c4aa77c5125eb9ab3f41981aa8f0c3a5aed7,e/7/e7
 Q.idea/sonarlint/securityhotspotstore/1/3/13982a3a3e4be5dd357e17829410d4f8e120bfd8,f/2/f2fa1684b2f61a6a2cd57d0a982ef13b4f542c9d
 ê
 `producer-module/src/main/java/org/example/producermodule/controller/AdminSecurityController.java,b/d/bdb4adaebc834f479fde16081eb5793c69a99590
-ä
-Zproducer-module/src/main/java/org/example/producermodule/kafka/api/KafkaControllerMVC.java,e/e/eeb424df648c60c16de8ba826142ab2cecda6ca6
 }
 Mproducer-module/src/main/java/org/example/producermodule/enums/EventType.java,4/3/436c953cac41f6cfabde8aa749ac54251725471b
-ã
-[producer-module/src/main/java/org/example/producermodule/controller/KafkaControllerMVC.java,4/0/40426888247525bdf052cba9c913cc434fb8e15b
 é
 ^producer-module/src/main/java/org/example/producermodule/controller/ProducerControllerMVC.java,2/6/26544e75374006ff472746b55f6d754e53c1cdc8
 Ö
 Uproducer-module/src/main/java/org/example/producermodule/service/ProducerService.java,3/2/32b9fe1de7ee54376bba4df2c19eeae1c006e797
-â
-Yproducer-module/src/main/java/org/example/producermodule/service/ProducerServiceImpl.java,9/0/905353b58fd54121b8d1dd97a14fe5f0424f347a
 é
 ^producer-module/src/main/java/org/example/producermodule/service/impl/ProducerServiceImpl.java,f/f/ff0f82828d3ff7d08891c345c72b07b2a4e39258
