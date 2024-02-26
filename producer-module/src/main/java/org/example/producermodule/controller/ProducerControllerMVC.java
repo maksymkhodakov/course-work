@@ -4,6 +4,8 @@ import com.example.zoo.enums.AnimalStreamProcessType;
 import com.example.zoo.enums.KindAnimal;
 import com.example.zoo.enums.TypePowerSupply;
 import com.example.zoo.repository.AnimalStreamRepository;
+import lombok.Builder;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.example.producermodule.enums.EventType;
 import org.example.producermodule.service.ProducerService;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/producer")
 @RequiredArgsConstructor
@@ -23,8 +27,20 @@ public class ProducerControllerMVC {
 
     @GetMapping("/getAll")
     public String getAll(Model model) {
-        final var loadedResults = animalStreamRepository.findAll();
-        model.addAttribute("streams", loadedResults);
+        final var streams = animalStreamRepository.findAll()
+                .stream()
+                .map(stream -> StreamData.builder()
+                        .id(stream.getId())
+                        .name(stream.getName())
+                        .venomous(stream.getVenomous())
+                        .typePowerSupply(stream.getTypePowerSupply())
+                        .age(stream.getAge())
+                        .processed(stream.getProcessed())
+                        .errorMessage(stream.getErrorMessage())
+                        .processType(stream.getProcessType())
+                        .build())
+                .collect(Collectors.toSet());
+        model.addAttribute("streams", streams);
         return "producerresult";
     }
 
@@ -56,5 +72,19 @@ public class ProducerControllerMVC {
             producerService.handleDelete(processType, id);
         }
         return "redirect:/producer/getAll";
+    }
+
+    @Data
+    @Builder
+    private static class StreamData {
+        private Long id;
+        private String name;
+        private String kindAnimal;
+        private String venomous;
+        private String typePowerSupply;
+        private String age;
+        private Boolean processed;
+        private String errorMessage;
+        private AnimalStreamProcessType processType;
     }
 }

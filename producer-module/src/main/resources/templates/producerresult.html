@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>List of Kafka Streams</title>
+    <title>List of Animal Streams</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <link rel="stylesheet" href="styles.css">
@@ -53,7 +53,7 @@
             <th scope="col">Error Message</th>
         </tr>
         </thead>
-        <canvas id="typeChart" width="400" height="100" class="mb-3"></canvas>
+        <canvas id="processTypeChart" width="400" height="200"></canvas>
         <tbody>
         <tr th:each="stream : ${streams}">
             <td th:text="${stream.id}"></td>
@@ -71,12 +71,12 @@
 </div>
 <script th:inline="javascript">
     document.addEventListener("DOMContentLoaded", function () {
-        const ctx = document.getElementById('typeChart').getContext('2d');
-        const streams = /*[[${streams}]]*/ [];
+        const ctx = document.getElementById('processTypeChart').getContext('2d');
+        const streamList = /*[[${streams}]]*/ [];
         const typeCounts = {};
 
-        streams.forEach(function (loadFile) {
-            const type = loadFile.processType;
+        streamList.forEach(function (stream) {
+            const type = stream.processType;
             if (typeCounts[type]) {
                 typeCounts[type]++;
             } else {
@@ -84,18 +84,24 @@
             }
         });
 
-        const kinds = Object.keys(typeCounts);
-        const kindCount = Object.values(typeCounts);
+        const types = Object.keys(typeCounts);
+        const counts = Object.values(typeCounts);
 
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: kinds,
+                labels: types,
                 datasets: [{
-                    label: 'Animal stream count by process type',
-                    data: kindCount,
-                    backgroundColor: 'rgba(231,196,15,0.2)',
-                    borderColor: 'rgb(217,5,117)',
+                    label: 'Number of Streams by Process Type',
+                    data: counts,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)', // Red
+                        'rgba(54, 162, 235, 0.2)', // Blue
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                    ],
                     borderWidth: 1
                 }]
             },
@@ -105,13 +111,13 @@
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Number of streams'
+                            text: 'Number of Streams'
                         }
                     },
                     x: {
                         title: {
                             display: true,
-                            text: 'Process type'
+                            text: 'Process Type'
                         }
                     }
                 }

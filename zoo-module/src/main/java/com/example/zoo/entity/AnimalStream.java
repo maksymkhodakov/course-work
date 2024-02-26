@@ -10,6 +10,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = "loadResult")
 @Table(name = "animal_stream")
 public class AnimalStream extends TimestampEntity {
     @Column(name = "name")
