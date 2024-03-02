@@ -1,5 +1,6 @@
 package com.example.zoo.controller.mvc;
 
+import com.example.zoo.entity.Animal;
 import com.example.zoo.exceptions.ApiErrors;
 import com.example.zoo.exceptions.OperationException;
 import com.example.zoo.entity.Zoo;
@@ -17,12 +18,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/zoo")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ZooController {
     private static final String REDIRECT_ZOO_GET_ALL = "redirect:/zoo/getAll";
+    public static final String LIST_ANIMALS = "listAnimals";
     ZooRepository zooRepository;
     CountryRepository countryRepository;
     AnimalRepository animalRepository;
@@ -90,8 +94,7 @@ public class ZooController {
     public String submitUpdateZoo(@RequestParam("nameInput") String name,
                                   @RequestParam("squareInput") double square,
                                   @RequestParam("id") Long id,
-                                  @RequestParam("countryId") Long countryId
-    ) {
+                                  @RequestParam("countryId") Long countryId) {
         var zoo = zooRepository.findById(id)
                 .orElseThrow(() -> new OperationException(ApiErrors.ZOO_NOT_FOUND));
         var country = countryRepository.findById(countryId)
@@ -112,8 +115,8 @@ public class ZooController {
                 .map(animalMapper::entityToDto)
                 .toList();
         model.addAttribute("zooId", id);
-        model.addAttribute("listAnimals", animals);
-        return "listAnimals";
+        model.addAttribute(LIST_ANIMALS, animals);
+        return LIST_ANIMALS;
     }
 
     @PostMapping("/deleteAnimal/{animalId}/{zooId}")
@@ -133,10 +136,11 @@ public class ZooController {
     public String animals(@PathVariable Long id, Model model) {
         var animals = animalRepository.findAll()
                 .stream()
+                .sorted(Comparator.comparing(Animal::getLastUpdateDate, Comparator.reverseOrder()))
                 .map(animalMapper::entityToDto)
                 .toList();
         model.addAttribute("zooId", id);
-        model.addAttribute("listAnimals", animals);
+        model.addAttribute(LIST_ANIMALS, animals);
         return "listAnimalsToAdd";
     }
 

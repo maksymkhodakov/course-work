@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -64,6 +65,7 @@ public class AnimalController {
     public String getAll(Model model) {
         var animals = animalRepository.findAll()
                 .stream()
+                .sorted(Comparator.comparing(Animal::getLastUpdateDate, Comparator.reverseOrder()))
                 .map(animalMapper::entityToDto)
                 .toList();
         model.addAttribute("lostAnimals", animals);
@@ -135,7 +137,11 @@ public class AnimalController {
         animal.setTypePowerSupply(typePowerSupply);
 
         if (file.getBytes().length != 0) {
-            animal.setPhotoPath(s3Service.updateFile(awsProperties.getZooServiceBucketName(), animal.getPhotoPath(), file));
+            if (Objects.nonNull(animal.getPhotoPath())) {
+                animal.setPhotoPath(s3Service.updateFile(awsProperties.getZooServiceBucketName(), animal.getPhotoPath(), file));
+            } else {
+                animal.setPhotoPath(s3Service.uploadFile(awsProperties.getZooServiceBucketName(), file));
+            }
         }
 
         return REDIRECT_ANIMAL_GET_ALL;

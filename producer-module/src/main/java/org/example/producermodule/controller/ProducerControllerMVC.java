@@ -1,5 +1,6 @@
 package org.example.producermodule.controller;
 
+import com.example.zoo.entity.AnimalStream;
 import com.example.zoo.enums.AnimalStreamProcessType;
 import com.example.zoo.enums.KindAnimal;
 import com.example.zoo.enums.TypePowerSupply;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Controller
@@ -29,6 +31,7 @@ public class ProducerControllerMVC {
     public String getAll(Model model) {
         final var streams = animalStreamRepository.findAll()
                 .stream()
+                .sorted(Comparator.comparing(AnimalStream::getLastUpdateDate, Comparator.reverseOrder()))
                 .map(stream -> StreamData.builder()
                         .id(stream.getId())
                         .name(stream.getName())

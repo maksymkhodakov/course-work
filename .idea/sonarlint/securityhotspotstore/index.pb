@@ -5737,3 +5737,11 @@ Mproducer-module/src/main/java/org/example/producermodule/enums/EventType.java,
 Uproducer-module/src/main/java/org/example/producermodule/service/ProducerService.java,3/2/32b9fe1de7ee54376bba4df2c19eeae1c006e797
 Ž
 ^producer-module/src/main/java/org/example/producermodule/service/impl/ProducerServiceImpl.java,f/f/ff0f82828d3ff7d08891c345c72b07b2a4e39258
+n
+>zoo-module/src/main/resources/templates/indexAnimalStream.html,c/e/ce0690b2cfe43ac942c93fec912e96b52cc4655c
+j
+:zoo-module/src/main/resources/templates/createCountry.html,8/c/8ca04c5c2a04e47fc4c91a95166fde2f30f375d9
+j
+:zoo-module/src/main/resources/templates/updateCountry.html,0/6/06c9432b9b63767b7c4ce618e97fe4ea0ee718f8
+p
+@producer-module/src/main/resources/templates/producerresult.html,3/3/33cfe1be230d7424e9eb327fab76fe3eee02612c
