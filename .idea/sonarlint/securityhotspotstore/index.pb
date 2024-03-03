@@ -5745,3 +5745,9 @@ j
 :zoo-module/src/main/resources/templates/updateCountry.html,0/6/06c9432b9b63767b7c4ce618e97fe4ea0ee718f8
 p
 @producer-module/src/main/resources/templates/producerresult.html,3/3/33cfe1be230d7424e9eb327fab76fe3eee02612c
+i
+9zoo-module/src/main/java/com/example/zoo/entity/Task.java,e/f/ef78cccb5371b709c9695cef057cd601967f3edd
+k
+;zoo-module/src/main/java/com/example/zoo/entity/Answer.java,b/8/b818f3d1b9453bcef07e7b350c7269eab1f94373
+w
+Gzoo-module/src/main/java/com/example/zoo/repository/TaskRepository.java,c/b/cb63910e68c3aa83142da017348f498328c9239f
