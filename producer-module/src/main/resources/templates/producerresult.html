@@ -62,9 +62,9 @@
             <td th:text="${stream.venomous}"></td>
             <td th:text="${stream.typePowerSupply}"></td>
             <td th:text="${stream.age}"></td>
-            <td th:text="${stream.processed}"></td>
+            <td th:text="${stream.processed != null ? (stream.processed ? 'Yes' : 'No') : 'No'}"></td>
             <td th:text="${stream.processType}"></td>
-            <td th:text="${stream.errorMessage}"></td>
+            <td th:text="${stream.errorMessage == null ? '' : stream.errorMessage}"></td>
         </tr>
         </tbody>
     </table>
