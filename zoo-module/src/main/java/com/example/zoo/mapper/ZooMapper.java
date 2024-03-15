@@ -4,10 +4,10 @@ import com.example.zoo.data.ZooData;
 import com.example.zoo.dto.ZooDTO;
 import com.example.zoo.entity.Country;
 import com.example.zoo.entity.Zoo;
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Service;
 
 
-@UtilityClass
+@Service
 public class ZooMapper {
     public ZooDTO entityToDto(Zoo zoo){
         return ZooDTO.builder()

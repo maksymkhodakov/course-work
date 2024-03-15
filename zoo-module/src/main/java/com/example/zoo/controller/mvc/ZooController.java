@@ -31,12 +31,13 @@ public class ZooController {
     CountryRepository countryRepository;
     AnimalRepository animalRepository;
     AnimalMapper animalMapper;
+    ZooMapper zooMapper;
 
     @GetMapping("/getAll")
     public String getAll(Model model) {
         var zoos = zooRepository.findAll()
                 .stream()
-                .map(ZooMapper::entityToDto)
+                .map(zooMapper::entityToDto)
                 .toList();
         model.addAttribute("zooList", zoos);
         return "zooIndex";
@@ -83,7 +84,7 @@ public class ZooController {
                 .stream()
                 .map(CountryMapper::entityToDto)
                 .toList();
-        var zooDTO = ZooMapper.entityToDto(zoo);
+        var zooDTO = zooMapper.entityToDto(zoo);
         model.addAttribute("zoo", zooDTO);
         model.addAttribute("listOfCountries", countries);
         return "updateZoo";

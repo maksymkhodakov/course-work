@@ -4,8 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.example.zoo.data.ZooData;
 import com.example.zoo.dto.ZooDTO;
+import com.example.zoo.entity.Country;
+import com.example.zoo.entity.Zoo;
 import com.example.zoo.exceptions.OperationException;
 import com.example.zoo.mapper.AnimalMapper;
+import com.example.zoo.mapper.ZooMapper;
 import com.example.zoo.repository.AnimalRepository;
 import com.example.zoo.repository.CountryRepository;
 import com.example.zoo.repository.ZooRepository;
@@ -14,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +39,9 @@ class ZooServiceImplTest {
 
     @Mock
     private AnimalMapper animalMapper;
+
+    @Spy
+    private ZooMapper zooMapper;
 
     @InjectMocks
     private ZooServiceImpl zooService;
@@ -65,6 +72,24 @@ class ZooServiceImplTest {
 
         // Act & Assert
         assertThrows(OperationException.class, () -> zooService.save(zooData));
+    }
+
+    @Test
+    void testSaveSpy() {
+        // Arrange
+        ZooData zooData = new ZooData();
+        zooData.setLocationId(1L); // Assume this is the ID for the location
+        Country country = new Country(); // Assume Country is an entity
+        country.setId(1L);
+
+        when(countryRepository.findById(any())).thenReturn(Optional.of(country));
+        doReturn(new Zoo()).when(zooMapper).dataToEntity(any(ZooData.class), any(Country.class)); // Stubbing method of spy
+
+        // Act
+        zooService.save(zooData);
+
+        // Assert
+        verify(zooRepository).saveAndFlush(any(Zoo.class)); // Verify saveAndFlush was called
     }
 
     @Test

@@ -34,20 +34,21 @@ public class ZooServiceImpl implements ZooService {
     private final CountryRepository countryRepository;
     private final AnimalRepository animalRepository;
     private final AnimalMapper animalMapper;
+    private final ZooMapper zooMapper;
 
     @Override
     @Cacheable(value = ZOO, cacheManager = "cacheManager")
     public List<ZooDTO> getAll() {
         return zooRepository.findAll()
                 .stream()
-                .map(ZooMapper::entityToDto)
+                .map(zooMapper::entityToDto)
                 .toList();
     }
 
     @Override
     public Page<ZooDTO> getAll(SearchDTO searchDTO) {
         return zooRepository.findAll(SearchUtil.getPageable(searchDTO))
-                .map(ZooMapper::entityToDto);
+                .map(zooMapper::entityToDto);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class ZooServiceImpl implements ZooService {
     public void save(ZooData zooData) {
         final var country = countryRepository.findById(zooData.getLocationId())
                 .orElseThrow(() -> new OperationException(ApiErrors.COUNTRY_NOT_FOUND));
-        final var zoo = ZooMapper.dataToEntity(zooData, country);
+        final var zoo = zooMapper.dataToEntity(zooData, country);
         zooRepository.saveAndFlush(zoo);
         log.info("Zoo with id: " + country.getId() + " created");
     }
@@ -76,7 +77,7 @@ public class ZooServiceImpl implements ZooService {
     @Override
     @Cacheable(value = ZOO, cacheManager = "cacheManager")
     public ZooDTO getById(Long id) {
-        return ZooMapper.entityToDto(zooRepository.findById(id)
+        return zooMapper.entityToDto(zooRepository.findById(id)
                 .orElseThrow(() -> new OperationException(ApiErrors.ZOO_NOT_FOUND)));
     }
 
