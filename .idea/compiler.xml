@@ -8,8 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="consumer-module" />
-        <module name="zoo-module" />
         <module name="producer-module" />
+        <module name="zoo-module" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -20,6 +20,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="commons" options="-parameters" />
       <module name="consumer-module" options="-parameters" />
+      <module name="main" options="" />
       <module name="producer-module" options="-parameters" />
       <module name="zoo-module" options="-parameters" />
     </option>

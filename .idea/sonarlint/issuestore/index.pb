@@ -5745,3 +5745,19 @@ j
 :zoo-module/src/main/resources/templates/updateCountry.html,0/6/06c9432b9b63767b7c4ce618e97fe4ea0ee718f8
 p
 @producer-module/src/main/resources/templates/producerresult.html,3/3/33cfe1be230d7424e9eb327fab76fe3eee02612c
+™
+irabbitmq/mnesia/rabbit@rabbitmq/msg_stores/vhosts/628WB79CIFDYO9LJI6DKMI09L/msg_store_transient/clean.dot,b/0/b0af8cc4aec4f43a6f750b258a167cc4276925a9
+š
+jrabbitmq/mnesia/rabbit@rabbitmq/msg_stores/vhosts/628WB79CIFDYO9LJI6DKMI09L/msg_store_persistent/clean.dot,f/3/f369598fb9128d0be33e9805f2ed9a217524f659
+<
+main/pom.xml,f/e/fe73465287b4c5a7d2f727a93d8c815476b83968
+h
+8main/src/main/java/org/example/main/MainApplication.java,e/c/ece623918a630104dd6ae2709e6b352658db4571
+?
+main/.gitignore,9/d/9ded45ccdfab72bcec8630354e352a27e4d56ddd
+=
+main/mvnw.cmd,2/b/2b28282f40d5a62440b61a903e3bfc4f81b8e502
+9
+	main/mvnw,a/a/aa157b486b7bf456212fd060ae50750f56cf00bb
+Z
+*main/.mvn/wrapper/maven-wrapper.properties,e/7/e77bba206c805f22a0d3346725473a635bd1581a
