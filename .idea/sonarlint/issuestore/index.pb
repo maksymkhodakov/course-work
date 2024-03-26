@@ -5751,8 +5751,6 @@ irabbitmq/mnesia/rabbit@rabbitmq/msg_stores/vhosts/628WB79CIFDYO9LJI6DKMI09L/msg
 jrabbitmq/mnesia/rabbit@rabbitmq/msg_stores/vhosts/628WB79CIFDYO9LJI6DKMI09L/msg_store_persistent/clean.dot,f/3/f369598fb9128d0be33e9805f2ed9a217524f659
 <
 main/pom.xml,f/e/fe73465287b4c5a7d2f727a93d8c815476b83968
-h
-8main/src/main/java/org/example/main/MainApplication.java,e/c/ece623918a630104dd6ae2709e6b352658db4571
 ?
 main/.gitignore,9/d/9ded45ccdfab72bcec8630354e352a27e4d56ddd
 =
@@ -5761,3 +5759,5 @@ h
 	main/mvnw,a/a/aa157b486b7bf456212fd060ae50750f56cf00bb
 Z
 *main/.mvn/wrapper/maven-wrapper.properties,e/7/e77bba206c805f22a0d3346725473a635bd1581a
+<
+main/HELP.md,2/c/2c0fbbb549e8883aa0571914109fbf98b0cf7e02
