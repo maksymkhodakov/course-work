@@ -5759,3 +5759,13 @@ jrabbitmq/mnesia/rabbit@rabbitmq/msg_stores/vhosts/628WB79CIFDYO9LJI6DKMI09L/msg
 	main/mvnw,a/a/aa157b486b7bf456212fd060ae50750f56cf00bb
 Z
 *main/.mvn/wrapper/maven-wrapper.properties,e/7/e77bba206c805f22a0d3346725473a635bd1581a
+>
+.gitattributes,2/4/24139dae656713ba861751fb2c2ac38839349a7a
+w
+G.idea/sonarlint/issuestore/2/6/26544e75374006ff472746b55f6d754e53c1cdc8,e/d/edb9fb1a50f0f1b376c329cfecccc5ea92714809
+Å
+Q.idea/sonarlint/securityhotspotstore/2/6/26544e75374006ff472746b55f6d754e53c1cdc8,b/4/b46819b1306bab7048bdfee15b7c9be3469d6a15
+Å
+Q.idea/sonarlint/securityhotspotstore/2/4/24139dae656713ba861751fb2c2ac38839349a7a,9/9/99c44e60ac1dd74e28fd4ea468b0d1101f3799a2
+w
+G.idea/sonarlint/issuestore/2/4/24139dae656713ba861751fb2c2ac38839349a7a,5/d/5d74986914a0b9184cba71859fe744836565fb6c
