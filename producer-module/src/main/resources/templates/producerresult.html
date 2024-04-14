@@ -6,39 +6,75 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            padding: 20px;
+            background-image: url('https://source.unsplash.com/1920x1080/?zoo,animals');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-family: 'Arial', sans-serif;
+        }
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #212529;
+        }
+        .table th {
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+        }
+        .table td {
+            padding: 10px;
+            vertical-align: middle;
+        }
+        .table tbody tr:nth-child(odd) {
+            background-color: #f8f9fa;
+        }
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .btn-dark {
+            background-color: #343a40;
+            color: white;
+        }
+        .btn-dark:hover {
+            background-color: #23272b;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            opacity: 0.95;
+        }
+        #processTypeChart {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
-<style>
-    body {
-        padding: 20px;
-        background-image: url('https://source.unsplash.com/1920x1080/?zoo,animals');
-        background-size: cover;
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-    .table tbody tr:nth-child(odd) {
-        background-color: #f2f2f2;
-    }
-    .btn {
-        margin-right: 5px;
-    }
-    .form-group {
-        margin-top: 10px;
-    }
-    .container {
-        background-color: #ffffff;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-</style>
 <body>
 <div th:replace="navbar.html"></div>
 <div class="container">
     <h1>List of Animal Streams</h1>
-    <div>
+    <div class="mb-3">
         <a class="btn btn-dark" th:href="@{/producer/create-event}">Create event</a>
     </div>
+    <canvas id="processTypeChart" width="400" height="200"></canvas>
     <table class="table table-bordered">
         <thead class="thead-dark">
         <tr>
@@ -53,7 +89,6 @@
             <th scope="col">Error Message</th>
         </tr>
         </thead>
-        <canvas id="processTypeChart" width="400" height="200"></canvas>
         <tbody>
         <tr th:each="stream : ${streams}">
             <td th:text="${stream.id}"></td>
@@ -70,6 +105,7 @@
     </table>
 </div>
 <script th:inline="javascript">
+    /* Script for generating the Chart.js chart */
     document.addEventListener("DOMContentLoaded", function () {
         const ctx = document.getElementById('processTypeChart').getContext('2d');
         const streamList = /*[[${streams}]]*/ [];
