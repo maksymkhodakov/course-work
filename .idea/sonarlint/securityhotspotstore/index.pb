@@ -5779,3 +5779,5 @@ Q.idea/sonarlint/securityhotspotstore/5/d/5d74986914a0b9184cba71859fe744836565fb
 Q.idea/sonarlint/securityhotspotstore/2/6/26544e75374006ff472746b55f6d754e53c1cdc8,b/4/b46819b1306bab7048bdfee15b7c9be3469d6a15
 w
 G.idea/sonarlint/issuestore/5/d/5d74986914a0b9184cba71859fe744836565fb6c,4/7/476a9ac1c8dc93272a462df205eab6b4a9a43e4d
+>
+.gitattributes,2/4/24139dae656713ba861751fb2c2ac38839349a7a
