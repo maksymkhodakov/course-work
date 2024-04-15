@@ -24,6 +24,11 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class AnimalStreamServiceImpl implements AnimalStreamService {
+    private static final String AGE = "Age";
+    private static final String TYPE_POWER_SUPPLY = "Type power supply";
+    private static final String VENOMOUS = "Venomous";
+    private static final String KIND = "Kind";
+    private static final String NAME = "Name";
     private final AnimalRepository animalRepository;
     private final AnimalStreamRepository animalStreamRepository;
     private final AnimalStreamLoadResultRepository animalStreamLoadResultRepository;
@@ -67,19 +72,19 @@ public class AnimalStreamServiceImpl implements AnimalStreamService {
 
     private void validateAge(AnimalStream animalStream, List<String> errors) {
         if (animalStream.getAge() == null || animalStream.getAge().isEmpty()) {
-            errors.add("Age");
+            errors.add(AGE);
         } else {
             try {
                 Integer.parseInt(animalStream.getAge());
             } catch(Exception e) {
-                errors.add("Age");
+                errors.add(AGE);
             }
         }
     }
 
     private void validatePowerSupply(AnimalStream animalStream, List<String> errors) {
         if (animalStream.getTypePowerSupply() == null || animalStream.getTypePowerSupply().isEmpty() || !isValidTypePowerSupplyEnumValue(animalStream)) {
-            errors.add("Type power supply");
+            errors.add(TYPE_POWER_SUPPLY);
         } else {
             animalStream.setTypePowerSupply(animalStream.getTypePowerSupply().trim());
         }
@@ -89,7 +94,7 @@ public class AnimalStreamServiceImpl implements AnimalStreamService {
         if (animalStream.getVenomous() == null || animalStream.getVenomous().isEmpty() ||
                 (!animalStream.getVenomous().equalsIgnoreCase("true") &&
                         !animalStream.getVenomous().equalsIgnoreCase("false"))) {
-            errors.add("Venomous");
+            errors.add(VENOMOUS);
         } else {
             animalStream.setVenomous(animalStream.getVenomous().trim());
         }
@@ -97,7 +102,7 @@ public class AnimalStreamServiceImpl implements AnimalStreamService {
 
     private void validateKind(AnimalStream animalStream, List<String> errors) {
         if (animalStream.getKindAnimal() == null || animalStream.getKindAnimal().isEmpty() || !isValidKindEnumValue(animalStream)) {
-            errors.add("Kind");
+            errors.add(KIND);
         } else {
             animalStream.setKindAnimal(animalStream.getKindAnimal().trim());
         }
@@ -105,7 +110,7 @@ public class AnimalStreamServiceImpl implements AnimalStreamService {
 
     private void validateName(AnimalStream animalStream, List<String> errors) {
         if (animalStream.getName() == null || animalStream.getName().isEmpty()) {
-            errors.add("Name");
+            errors.add(NAME);
         } else {
             animalStream.setName(animalStream.getName().trim());
         }
