@@ -33,3 +33,6 @@ for manual creation of animal streams
 Accepts 'animal_stream' values from RabbiMQ/Kafka and transforms it to 'animal' entity and persists it in DB  
 all processed animals can be seen on existing api endpoints. Accepts both manually requested either via REST API  
 of producer module or by file upload.
+
+#### Docs Google Drive
+[Google Drive](https://drive.google.com/drive/folders/1Tygdd6vEOOClsuFoUrV8GDmYmt-ArCEc?usp=drive_link)
