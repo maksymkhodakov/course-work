@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,16 +26,19 @@ public class CountryRestController {
     CountryService countryService;
 
     @GetMapping("/getAll")
+    @PreAuthorize("hasPermission(null, T(com.example.zoo.enums.Privilege).ROLE_BASIC_USER)")
     public ResponseDTO<List<CountryDTO>> getAll() {
         return ResponseDTO.ofData(countryService.getAll(), ResponseDTO.ResponseStatus.OK);
     }
 
     @GetMapping("/pagination/getAll")
+    @PreAuthorize("hasPermission(null, T(com.example.zoo.enums.Privilege).ROLE_BASIC_USER)")
     public ResponseDTO<Page<CountryDTO>> paginationGetAll(@RequestBody SearchDTO searchDTO) {
         return ResponseDTO.ofData(countryService.getAll(searchDTO), ResponseDTO.ResponseStatus.OK);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasPermission(null, T(com.example.zoo.enums.Privilege).ROLE_BASIC_USER)")
     public ResponseDTO<CountryDTO> getById(@PathVariable Long id) {
         try {
             return ResponseDTO.ofData(countryService.getById(id), ResponseDTO.ResponseStatus.OK);
@@ -44,6 +48,7 @@ public class CountryRestController {
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasPermission(null, T(com.example.zoo.enums.Privilege).ROLE_BASIC_USER)")
     public ResponseDTO<Void> create(@RequestPart("data") @Valid CountryData countryData,
                                     @RequestPart("file") MultipartFile multipartFile) {
         try {
@@ -67,6 +72,7 @@ public class CountryRestController {
     }
 
     @DeleteMapping("/delete")
+    @PreAuthorize("hasPermission(null, T(com.example.zoo.enums.Privilege).ROLE_BASIC_USER)")
     public ResponseDTO<Void> delete(@RequestParam Long id) {
         try {
             countryService.delete(id);

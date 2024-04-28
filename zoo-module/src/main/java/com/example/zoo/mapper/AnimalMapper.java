@@ -28,7 +28,7 @@ public class AnimalMapper {
                 .build();
     }
 
-    private byte[] getBytes(Animal animal) {
+    public byte[] getBytes(Animal animal) {
         if (animal.getPhotoPath() == null || animal.getPhotoPath().isEmpty()) {
             return new byte[0];
         }

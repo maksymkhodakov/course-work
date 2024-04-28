@@ -19,6 +19,7 @@
         <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
         <spring-boot-starter-cache.version>2.4.0</spring-boot-starter-cache.version>
         <aws-java-sdk-s3.version>1.12.470</aws-java-sdk-s3.version>
+        <telegrambots.version>5.6.0</telegrambots.version>
     </properties>
     <dependencies>
         <dependency>
@@ -57,6 +58,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots</artifactId>
+            <version>${telegrambots.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
