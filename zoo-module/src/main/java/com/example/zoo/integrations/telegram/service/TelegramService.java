@@ -70,20 +70,20 @@ public class TelegramService extends TelegramLongPollingBot {
     }
 
     private void getZoo(Message message) {
-        final List<ZooTelegramDTO> payload = zooRepository
+        final List<ZooTelegramDTO> payloads = zooRepository
                 .findAll()
                 .stream()
                 .map(this::entityToTelegramDTO)
                 .toList();
-        String answer = getAnswerFromPayload(payload);
-        answer(message, answer);
-        sendPhotos(message, payload);
+        payloads.forEach(payload -> {
+            String answer = getAnswerFromPayload(payload);
+            answer(message, answer);
+            sendPhotos(message, payload);
+        });
     }
 
-    private void sendPhotos(Message message, List<ZooTelegramDTO> payload) {
-        payload.stream()
-                .map(ZooTelegramDTO::getPhotos)
-                .flatMap(List::stream)
+    private void sendPhotos(Message message, ZooTelegramDTO payload) {
+        payload.getPhotos()
                 .forEach(photo -> {
                     InputFile inputFile = new InputFile(new ByteArrayInputStream(photo), "file");
 
@@ -109,16 +109,11 @@ public class TelegramService extends TelegramLongPollingBot {
                 .build();
     }
 
-    private String getAnswerFromPayload(List<ZooTelegramDTO> payload) {
-        if (Objects.isNull(payload) || payload.isEmpty()) {
+    private String getAnswerFromPayload(ZooTelegramDTO payload) {
+        if (Objects.isNull(payload)) {
             return MessageStatus.NO_CONTENT.getMessage();
         }
-        final StringBuilder sb = new StringBuilder();
-        payload.forEach(p -> {
-            sb.append(generateMessage(p));
-            sb.append("\n");
-        });
-        return sb.toString();
+        return generateMessage(payload);
     }
 
     private String generateMessage(ZooTelegramDTO p) {
