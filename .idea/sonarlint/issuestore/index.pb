@@ -5817,16 +5817,6 @@ Q.idea/sonarlint/securityhotspotstore/2/4/24139dae656713ba861751fb2c2ac38839349a
 Q.idea/sonarlint/securityhotspotstore/3/6/3615cd5dfe97509fdc508a56183d72f7fd142db1,a/c/ac7edbee5d33cba61306cc03bf0c448c5a0bbbf5
 Å
 Q.idea/sonarlint/securityhotspotstore/d/5/d5b42914b54d6d4e7b9c5ea12cb533174822f4fa,8/7/87fdcf2c6d24583e497313aa276fbef53ee17851
-Å
-Qzoo-module/src/main/java/com/example/zoo/telegram/domain/enums/MessageStatus.java,6/9/69d324b768c6ca1177d6cea6c5f569fe682db912
-á
-Wzoo-module/src/main/java/com/example/zoo/telegram/domain/entities/TelegramUserLogs.java,8/4/847d13869de775efdc231c676b2c36e9451a4927
-à
-Xzoo-module/src/main/java/com/example/zoo/telegram/repository/TelegramLogsRepository.java,8/a/8aeeae20f936e6dd7d87e960428691329d61ba10
-~
-Nzoo-module/src/main/java/com/example/zoo/telegram/service/TelegramService.java,7/f/7f8127318df6c57a62654fd28af32b03bdbb0125
-Ä
-Pzoo-module/src/main/java/com/example/zoo/telegram/domain/dto/ZooTelegramDTO.java,f/3/f31fcefbcff5a5baff90798f1f7de27b502ee1bd
 ã
 [zoo-module/src/main/java/com/example/zoo/integrations/telegram/service/TelegramService.java,5/b/5b622ec54d9340dee0371bd871dcc7bb9b567c4e
 ï
@@ -5841,3 +5831,5 @@ dzoo-module/src/main/java/com/example/zoo/integrations/telegram/domain/entities/
 Yzoo-module/src/main/java/com/example/zoo/integrations/telegram/config/TelegramConfig.java,7/6/76c24b40601a13840e989213111219da0b57b498
 Ñ
 Tzoo-module/src/main/java/com/example/zoo/controller/rest/TelegramRestController.java,f/c/fcfd3b46152f5fe48ec9ba8531a23f0fcfc9e416
+É
+Sproducer-module/src/main/java/org/example/producermodule/config/TelegramConfig.java,e/0/e0c0b0ab4e932e18e9cc2d6f4be5d1083a24bcd3
