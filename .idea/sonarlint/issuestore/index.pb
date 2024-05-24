@@ -5831,5 +5831,3 @@ dzoo-module/src/main/java/com/example/zoo/integrations/telegram/domain/entities/
 Yzoo-module/src/main/java/com/example/zoo/integrations/telegram/config/TelegramConfig.java,7/6/76c24b40601a13840e989213111219da0b57b498
 „
 Tzoo-module/src/main/java/com/example/zoo/controller/rest/TelegramRestController.java,f/c/fcfd3b46152f5fe48ec9ba8531a23f0fcfc9e416
-ƒ
-Sproducer-module/src/main/java/org/example/producermodule/config/TelegramConfig.java,e/0/e0c0b0ab4e932e18e9cc2d6f4be5d1083a24bcd3

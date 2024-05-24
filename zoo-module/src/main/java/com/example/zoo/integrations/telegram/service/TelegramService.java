@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
@@ -33,6 +34,7 @@ import java.util.Objects;
 @Service
 @Getter
 @RequiredArgsConstructor
+@ConditionalOnProperty(value="telegram.bot.enabled")
 public class TelegramService extends TelegramLongPollingBot {
     private final List<BotCommand> botCommands;
     private final TelegramLogsRepository telegramLogsRepository;

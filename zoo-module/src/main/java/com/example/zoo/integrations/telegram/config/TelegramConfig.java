@@ -1,6 +1,7 @@
 package com.example.zoo.integrations.telegram.config;
 
 import com.example.zoo.integrations.telegram.service.TelegramService;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -11,6 +12,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import java.util.List;
 
 @Configuration
+@ConditionalOnProperty(value="telegram.bot.enabled")
 public class TelegramConfig {
     @Bean
     public List<BotCommand> botCommands() {
